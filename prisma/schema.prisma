@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model ApprovedCreator {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String   @unique
+  addedAt DateTime @default(now())
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Challenge {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  theme       String       @default("")
+  bannerUrl   String       @default("")
+  deadline    DateTime
+  prize       String       @default("")
+  status      String       @default("active")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  submissions Submission[]
+}
+
+model Submission {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  challengeId String    @db.ObjectId
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  userName    String
+  email       String
+  description String    @default("")
+  fileUrl     String
+  createdAt   DateTime  @default(now())
+}
