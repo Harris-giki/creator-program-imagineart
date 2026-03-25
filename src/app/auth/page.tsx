@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import {
   Mail,
   Lock,
@@ -132,7 +131,7 @@ function AuthContent() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-600/5 via-transparent to-purple-600/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-10)]/80 via-transparent to-surface-brand/20" />
 
       <motion.div
         key={step}
@@ -142,13 +141,13 @@ function AuthContent() {
       >
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-body-sm text-muted hover:text-brand-text mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to challenges
         </Link>
 
-        <div className="rounded-2xl border border-border-color bg-surface p-8">
+        <div className="card p-8">
           {/* Logo */}
           <div className="flex items-center justify-center gap-2.5 mb-8">
             <Image
@@ -159,38 +158,35 @@ function AuthContent() {
               className="w-10 h-10 object-contain"
             />
             <div>
-              <span className="text-lg font-bold">
-                Imagine<span className="text-primary">Art</span>
+              <span className="text-heading-xs">
+                Imagine<span className="text-brand-text">Art</span>
               </span>
-              <p className="text-xs text-muted">Creator Program</p>
+              <p className="text-body-xs text-muted">Creator Program</p>
             </div>
           </div>
 
           {/* Step 1: Enter email */}
           {step === "email" && (
             <form onSubmit={handleCheckEmail} className="space-y-4">
-              <p className="text-sm text-muted text-center mb-4">
+              <p className="text-body-sm text-muted text-center mb-4">
                 Enter the email you used when joining the Creator Program.
               </p>
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+                <label className="block text-label-xs text-muted mb-2 uppercase tracking-wider">
                   Creator Program Email
                 </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
-                    placeholder="you@example.com"
-                  />
-                </div>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="input"
+                  placeholder="you@example.com"
+                />
               </div>
 
               {error && (
-                <div className="flex items-center gap-2 text-red-400 text-sm">
+                <div className="flex items-center gap-2 text-error text-body-sm">
                   <AlertCircle className="w-4 h-4 flex-shrink-0" />
                   {error}
                 </div>
@@ -199,12 +195,7 @@ function AuthContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className={cn(
-                  "w-full py-2.5 rounded-xl font-semibold text-sm text-white",
-                  "bg-gradient-to-r from-violet-600 to-purple-600",
-                  "hover:from-violet-500 hover:to-purple-500",
-                  "disabled:opacity-50 transition-all duration-200"
-                )}
+                className="btn btn-expressive btn-lg w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
               >
                 {loading ? "Checking..." : "Continue"}
               </button>
@@ -214,14 +205,14 @@ function AuthContent() {
           {/* Step 2: Set up password (new creator) */}
           {step === "setup" && (
             <form onSubmit={handleSetupPassword} className="space-y-4">
-              <div className="flex items-center gap-2 text-emerald-500 text-sm mb-4">
+              <div className="flex items-center gap-2 text-body-sm text-[var(--success-50)] mb-4">
                 <CheckCircle className="w-4 h-4" />
                 <span>Email verified! Set up your password.</span>
               </div>
-              <p className="text-xs text-muted mb-2">{email}</p>
+              <p className="text-body-xs text-tertiary mb-2">{email}</p>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+                <label className="block text-label-xs text-muted mb-2 uppercase tracking-wider">
                   Create Password
                 </label>
                 <div className="relative">
@@ -232,13 +223,13 @@ function AuthContent() {
                     minLength={6}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+                    className="input w-full pl-10 pr-10 py-2.5"
                     placeholder="Min 6 characters"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-foreground rounded-lg"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-brand-text rounded-lg p-1 hover:bg-surface-hover transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -246,7 +237,7 @@ function AuthContent() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+                <label className="block text-label-xs text-muted mb-2 uppercase tracking-wider">
                   Confirm Password
                 </label>
                 <input
@@ -255,13 +246,13 @@ function AuthContent() {
                   minLength={6}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+                  className="input w-full px-3 py-2.5"
                   placeholder="Confirm password"
                 />
               </div>
 
               {error && (
-                <div className="flex items-center gap-2 text-red-400 text-sm">
+                <div className="flex items-center gap-2 text-error text-body-sm">
                   <AlertCircle className="w-4 h-4 flex-shrink-0" />
                   {error}
                 </div>
@@ -270,18 +261,14 @@ function AuthContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className={cn(
-                  "w-full py-2.5 rounded-xl font-semibold text-sm text-white",
-                  "bg-gradient-to-r from-violet-600 to-purple-600",
-                  "disabled:opacity-50 transition-all duration-200"
-                )}
+                className="btn btn-expressive btn-lg w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
               >
                 {loading ? "Creating account..." : "Create Account"}
               </button>
               <button
                 type="button"
                 onClick={goBack}
-                className="w-full text-sm text-muted hover:text-foreground"
+                className="btn btn-ghost btn-sm w-full"
               >
                 Use different email
               </button>
@@ -291,14 +278,14 @@ function AuthContent() {
           {/* Step 3: Log in (existing creator) */}
           {step === "login" && (
             <form onSubmit={handleLogin} className="space-y-4">
-              <div className="flex items-center gap-2 text-emerald-500 text-sm mb-4">
+              <div className="flex items-center gap-2 text-body-sm text-[var(--success-50)] mb-4">
                 <CheckCircle className="w-4 h-4" />
                 <span>Welcome back!</span>
               </div>
-              <p className="text-xs text-muted mb-2">{email}</p>
+              <p className="text-body-xs text-tertiary mb-2">{email}</p>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+                <label className="block text-label-xs text-muted mb-2 uppercase tracking-wider">
                   Password
                 </label>
                 <div className="relative">
@@ -308,13 +295,13 @@ function AuthContent() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+                    className="input w-full pl-10 pr-10 py-2.5"
                     placeholder="Enter your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-foreground rounded-lg"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-brand-text rounded-lg p-1 hover:bg-surface-hover transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -322,7 +309,7 @@ function AuthContent() {
               </div>
 
               {error && (
-                <div className="flex items-center gap-2 text-red-400 text-sm">
+                <div className="flex items-center gap-2 text-error text-body-sm">
                   <AlertCircle className="w-4 h-4 flex-shrink-0" />
                   {error}
                 </div>
@@ -331,27 +318,23 @@ function AuthContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className={cn(
-                  "w-full py-2.5 rounded-xl font-semibold text-sm text-white",
-                  "bg-gradient-to-r from-violet-600 to-purple-600",
-                  "disabled:opacity-50 transition-all duration-200"
-                )}
+                className="btn btn-expressive btn-lg w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
               >
                 {loading ? "Logging in..." : "Log In"}
               </button>
               <button
                 type="button"
                 onClick={goBack}
-                className="w-full text-sm text-muted hover:text-foreground"
+                className="btn btn-ghost btn-sm w-full"
               >
                 Use different email
               </button>
             </form>
           )}
 
-          <p className="mt-6 text-center text-xs text-muted">
+          <p className="mt-6 text-center text-body-xs text-muted">
             Part of the Creator Program?{" "}
-            <a href="mailto:m.haris@imagine.art" className="text-primary hover:underline">
+            <a href="mailto:m.haris@imagine.art" className="text-brand-text hover:underline">
               Contact us
             </a>{" "}
             to get your email verified.

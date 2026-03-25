@@ -85,20 +85,20 @@ export default function ApprovedCreatorsPage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
           <Link
             href="/admin"
-            className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-body-sm text-muted hover:text-brand-text mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to dashboard
           </Link>
 
           <div className="flex items-center gap-2 mb-8">
-            <Users className="w-6 h-6 text-primary" />
-            <h1 className="text-2xl font-black tracking-tight">
+            <Users className="w-6 h-6 text-brand-text" />
+            <h1 className="text-heading-lg tracking-tight">
               Creator Program
             </h1>
           </div>
 
-          <p className="text-sm text-muted mb-6">
+          <p className="text-body-sm text-muted mb-6">
             Add emails of creators who joined via the Google Form. These users can then log in and set up their password.
           </p>
 
@@ -106,35 +106,35 @@ export default function ApprovedCreatorsPage() {
           <form onSubmit={handleAdd} className="mb-8">
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted pointer-events-none" />
                 <input
                   type="email"
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="creator@example.com"
-                  className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-surface border border-border-color text-sm focus:outline-none focus:border-primary"
+                  className="input pl-10"
                 />
               </div>
               <button
                 type="submit"
                 disabled={adding || !newEmail.trim()}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-semibold disabled:opacity-50"
+                className="btn btn-expressive btn-md shrink-0 disabled:opacity-50"
               >
                 <Plus className="w-4 h-4" />
                 Add Creator
               </button>
             </div>
             {error && (
-              <p className="mt-2 text-sm text-red-400">{error}</p>
+              <p className="mt-2 text-body-sm text-error">{error}</p>
             )}
           </form>
 
           {/* List */}
-          <div className="rounded-2xl border border-border-color overflow-hidden">
+          <div className="card overflow-hidden">
             {loading ? (
-              <div className="p-8 text-center text-muted">Loading...</div>
+              <div className="p-8 text-center text-body-sm text-muted">Loading...</div>
             ) : creators.length === 0 ? (
-              <div className="p-8 text-center text-muted">
+              <div className="p-8 text-center text-body-sm text-muted">
                 No approved creators yet. Add emails from your Google Form responses.
               </div>
             ) : (
@@ -144,16 +144,17 @@ export default function ApprovedCreatorsPage() {
                     key={c.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="flex items-center justify-between px-4 py-3 hover:bg-surface-hover"
+                    className="flex items-center justify-between px-4 py-3 hover:bg-surface-hover transition-colors"
                   >
-                    <span className="text-sm truncate">{c.email}</span>
-                    <span className="text-xs text-muted flex-shrink-0 ml-2">
+                    <span className="text-body-sm truncate">{c.email}</span>
+                    <span className="text-body-xs text-muted flex-shrink-0 ml-2">
                       {new Date(c.addedAt).toLocaleDateString()}
                     </span>
                     <button
                       onClick={() => handleRemove(c.id)}
-                      className="p-1.5 rounded-lg text-muted hover:text-red-400 hover:bg-red-500/5 ml-2"
+                      className="btn btn-ghost btn-sm p-0 w-9 h-9 text-muted hover:text-error ml-2"
                       title="Remove"
+                      type="button"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

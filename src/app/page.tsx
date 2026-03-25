@@ -18,7 +18,6 @@ import {
   Timer,
   Play,
   Mic,
-  Eye,
   Vote,
   Gift,
 } from "lucide-react";
@@ -58,14 +57,11 @@ export default function Home() {
 
       <main className="flex-1 pt-16">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-black min-h-[420px] sm:min-h-[480px]">
-          {/* Background image */}
+        <section className="relative overflow-hidden bg-[var(--neutral-black)] min-h-[420px] sm:min-h-[480px]">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
             style={{ backgroundImage: "url('/uploads/background.png')" }}
           />
-
-          {/* Left-heavy gradient so text on the left stays readable */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent z-10" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 z-10" />
 
@@ -80,51 +76,52 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/15 bg-white/10 text-white text-xs font-bold uppercase tracking-[0.2em] mb-8 backdrop-blur-sm"
+                className="badge badge-success mb-8"
               >
-                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="w-1.5 h-1.5 bg-[var(--success-50)] rounded-full animate-pulse" />
                 Live Discord Events
               </motion.div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.05] mb-6">
-                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
+              <h1 className="text-display-xs sm:text-display-sm lg:text-display-md mb-6">
+                <span className="bg-gradient-to-r from-[var(--primary-40)] via-[var(--primary-50)] to-[var(--primary-30)] bg-clip-text text-transparent">
                   GenArena
                 </span>
                 <br />
-                <span className="text-white text-3xl sm:text-4xl lg:text-5xl font-bold">
+                <span className="text-white text-heading-lg sm:text-heading-xl lg:text-heading-2xl">
                   Create. Battle. Win.
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-white/65 max-w-md leading-relaxed mb-10">
+              <p className="text-body-md sm:text-body-lg text-white/60 max-w-md leading-relaxed mb-10">
                 High-energy AI creation sprints and prompt battles on Discord.
                 Compete with the community, showcase your skills, win credits.
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 text-sm">
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 border border-white/10 backdrop-blur-sm">
-                  <Timer className="w-4 h-4 text-violet-400" />
-                  <span className="text-white/70">Weekly Events</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 border border-white/10 backdrop-blur-sm">
-                  <Gift className="w-4 h-4 text-amber-400" />
-                  <span className="text-white/70">Free Credits</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 border border-white/10 backdrop-blur-sm">
-                  <Users className="w-4 h-4 text-emerald-400" />
-                  <span className="text-white/70">Community Driven</span>
-                </div>
+              <div className="flex flex-wrap items-center gap-3">
+                {[
+                  { icon: Timer, label: "Weekly Events", color: "text-[var(--primary-40)]" },
+                  { icon: Gift, label: "Free Credits", color: "text-[var(--warning-50)]" },
+                  { icon: Users, label: "Community Driven", color: "text-[var(--success-50)]" },
+                ].map(({ icon: Icon, label, color }) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/10 border border-white/10 backdrop-blur-sm"
+                  >
+                    <Icon className={cn("w-4 h-4", color)} />
+                    <span className="text-body-sm text-white/70">{label}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
         </section>
 
         {/* Challenges */}
-        <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
           {loading ? (
             <div className="space-y-8">
-              <div className="h-[420px] bg-surface rounded-2xl border border-border-color animate-pulse" />
-              <div className="h-[420px] bg-surface rounded-2xl border border-border-color animate-pulse" />
+              <div className="h-[420px] skeleton rounded-2xl" />
+              <div className="h-[420px] skeleton rounded-2xl" />
             </div>
           ) : (
             <div className="space-y-8">
@@ -143,37 +140,37 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-2xl sm:text-3xl font-black tracking-tight mb-3">
+              <h2 className="text-heading-lg sm:text-heading-xl tracking-tight mb-3">
                 How It Works
               </h2>
-              <p className="text-muted text-sm max-w-md mx-auto">
+              <p className="text-body-md text-muted max-w-md mx-auto">
                 Join our Discord, pick an event, and start creating with
                 ImagineArt.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {[
                 {
                   step: "01",
                   title: "Join the Event",
                   desc: "Hop into our Discord when the event goes live. Theme is revealed at the start.",
                   icon: Play,
-                  color: "text-violet-400",
+                  color: "text-[var(--primary-50)]",
                 },
                 {
                   step: "02",
                   title: "Create & Submit",
                   desc: "Use ImagineArt workflows to build your entry. Submit your output, prompt, and steps.",
                   icon: Sparkles,
-                  color: "text-fuchsia-400",
+                  color: "text-[var(--primary-40)]",
                 },
                 {
                   step: "03",
                   title: "Win Credits",
                   desc: "Community votes or judges pick winners. Top creators earn free credits.",
                   icon: Trophy,
-                  color: "text-amber-400",
+                  color: "text-[var(--warning-50)]",
                 },
               ].map((item, i) => (
                 <motion.div
@@ -182,16 +179,16 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.15 }}
-                  className="relative rounded-2xl border border-border-color bg-surface p-6 group hover:border-primary/20 transition-colors"
+                  className="card relative p-6 group hover:border-border-brand transition-colors"
                 >
-                  <span className="text-5xl font-black text-border-color absolute top-4 right-5 select-none">
+                  <span className="text-display-xs font-bold text-border-color absolute top-4 right-5 select-none opacity-60">
                     {item.step}
                   </span>
                   <div className={cn("mb-4", item.color)}>
                     <item.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="font-bold text-base mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">
+                  <h3 className="text-label-lg mb-2">{item.title}</h3>
+                  <p className="text-body-sm text-muted leading-relaxed">
                     {item.desc}
                   </p>
                 </motion.div>
@@ -228,69 +225,55 @@ function SprintCard({ challenge }: { challenge: Challenge }) {
       <Link href={`/challenges/${challenge.id}`} className="group block">
         <div className="relative overflow-hidden rounded-2xl">
           {/* Cinematic Banner */}
-          <div className="relative h-[280px] sm:h-[320px] bg-black overflow-hidden">
-            {/* Background video */}
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover z-0"
-            >
+          <div className="relative h-[280px] sm:h-[320px] bg-[var(--neutral-black)] overflow-hidden">
+            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
               <source src="/uploads/sprint.mp4" type="video/mp4" />
             </video>
-
-            {/* Dark overlays for text readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40 z-10" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
             <div className="absolute inset-0 bg-black/30 z-10" />
 
-            {/* Giant typography on right */}
             <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-10 text-right select-none hidden md:block">
               <div className="text-6xl lg:text-8xl font-black uppercase tracking-tighter text-white/[0.04] leading-none">
-                Sprint
-                <br />
-                Battle
+                Sprint<br />Battle
               </div>
             </div>
 
-            {/* Zap icon large decorative */}
             <div className="absolute right-8 sm:right-16 bottom-6 z-10 hidden sm:block">
-              <Zap className="w-20 h-20 lg:w-28 lg:h-28 text-violet-500/20" strokeWidth={1} />
+              <Zap className="w-20 h-20 lg:w-28 lg:h-28 text-[var(--primary-50)]/20" strokeWidth={1} />
             </div>
 
-            {/* Content overlay */}
             <div className="relative z-20 h-full flex flex-col justify-end p-6 sm:p-8">
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="badge badge-success">
+                  <span className="w-1.5 h-1.5 bg-[var(--success-50)] rounded-full animate-pulse" />
                   Active
                 </span>
-                <span className="px-2.5 py-1 rounded-full bg-white/10 text-white/80 border border-white/10 text-xs font-semibold backdrop-blur-sm">
+                <span className="badge" style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.8)", border: "1px solid rgba(255,255,255,0.1)" }}>
                   60 Min Sprint
                 </span>
-                <span className="flex items-center gap-1.5 text-white/50 text-xs">
+                <span className="flex items-center gap-1.5 text-white/50 text-body-xs">
                   <Users className="w-3.5 h-3.5" />
                   {challenge._count?.submissions ?? 0} joined
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-2 flex items-center gap-3">
-                <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-violet-400 flex-shrink-0" />
+              <h2 className="text-heading-lg sm:text-heading-xl lg:text-heading-2xl text-white tracking-tight mb-2 flex items-center gap-3">
+                <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary-40)] flex-shrink-0" />
                 {challenge.title}
               </h2>
 
-              <p className="text-white/60 text-sm leading-relaxed max-w-xl mb-4">
+              <p className="text-body-sm text-white/60 leading-relaxed max-w-xl mb-4">
                 High-energy, theme-based, 1-hour live creation session on Discord.
                 Build with ImagineArt workflows, compete, and win credits.
               </p>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center gap-1.5 text-amber-400 text-sm font-semibold">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-1.5 text-[var(--warning-50)] text-body-sm font-semibold">
                   <Trophy className="w-4 h-4" />
                   {challenge.prize}
                 </div>
-                <div className="flex items-center gap-1.5 text-white/50 text-sm">
+                <div className="flex items-center gap-1.5 text-white/50 text-body-sm">
                   <Clock className="w-3.5 h-3.5" />
                   <CountdownTimer deadline={challenge.deadline} compact />
                 </div>
@@ -302,17 +285,17 @@ function SprintCard({ challenge }: { challenge: Challenge }) {
           <div className="border border-t-0 border-border-color bg-surface rounded-b-2xl p-6 sm:p-8">
             <div className="flex flex-col lg:flex-row lg:items-start gap-6">
               <div className="flex-1">
-                <p className="text-xs font-bold uppercase tracking-widest text-muted mb-3">
+                <p className="text-label-xs uppercase tracking-widest text-muted mb-3">
                   Event Format
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {formatSteps.map((step, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background border border-border-color text-xs"
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-hover border border-border-secondary text-body-xs"
                     >
-                      <step.icon className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                      <span className="font-mono font-bold text-primary">
+                      <step.icon className="w-3.5 h-3.5 text-brand-text flex-shrink-0" />
+                      <span className="font-mono font-bold text-brand-text">
                         {step.time}
                       </span>
                       <span className="text-muted">{step.label}</span>
@@ -321,15 +304,7 @@ function SprintCard({ challenge }: { challenge: Challenge }) {
                 </div>
               </div>
 
-              <div
-                className={cn(
-                  "flex items-center justify-center gap-2 px-6 py-3 rounded-xl flex-shrink-0",
-                  "bg-gradient-to-r from-violet-600 to-purple-600",
-                  "text-white text-sm font-bold",
-                  "group-hover:from-violet-500 group-hover:to-purple-500",
-                  "transition-all duration-300"
-                )}
-              >
+              <div className="btn btn-expressive btn-lg flex-shrink-0 group-hover:shadow-xl">
                 Join Sprint
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -349,7 +324,7 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
   const battleSteps = [
     { icon: Users, label: "Volunteers opt in" },
     { icon: Swords, label: "2 randomly selected" },
-    { icon: Eye, label: "Reference scene revealed" },
+    { icon: Vote, label: "Reference scene revealed" },
     { icon: Timer, label: "20 min to recreate" },
     { icon: Vote, label: "Community votes" },
     { icon: Trophy, label: "Winner announced" },
@@ -364,79 +339,64 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
     >
       <Link href={`/challenges/${challenge.id}`} className="group block">
         <div className="relative overflow-hidden rounded-2xl">
-          {/* Cinematic Banner */}
-          <div className="relative h-[280px] sm:h-[320px] bg-black overflow-hidden">
-            {/* Background video */}
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover z-0"
-            >
+          <div className="relative h-[280px] sm:h-[320px] bg-[var(--neutral-black)] overflow-hidden">
+            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
               <source src="/uploads/prompt-battles.mp4" type="video/mp4" />
             </video>
-
-            {/* Dark overlays for text readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40 z-10" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
             <div className="absolute inset-0 bg-black/30 z-10" />
 
-            {/* Giant typography on right */}
             <div className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-10 text-right select-none hidden md:block">
               <div className="text-6xl lg:text-8xl font-black uppercase tracking-tighter text-white/[0.04] leading-none">
-                Prompt
-                <br />
-                Battles
+                Prompt<br />Battles
               </div>
             </div>
 
-            {/* VS emblem decorative */}
             <div className="absolute right-8 sm:right-16 bottom-8 z-10 hidden sm:flex items-center gap-5">
               <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
                 <span className="text-xl lg:text-2xl font-black text-white/30">P1</span>
               </div>
               <div className="flex flex-col items-center">
-                <Swords className="w-6 h-6 text-fuchsia-400/40" />
-                <span className="text-xs font-black text-fuchsia-400/40 mt-0.5">VS</span>
+                <Swords className="w-6 h-6 text-[var(--primary-40)]/40" />
+                <span className="text-body-xs font-black text-[var(--primary-40)]/40 mt-0.5">VS</span>
               </div>
               <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
                 <span className="text-xl lg:text-2xl font-black text-white/30">P2</span>
               </div>
             </div>
 
-            {/* Content overlay */}
             <div className="relative z-20 h-full flex flex-col justify-end p-6 sm:p-8">
               <div className="flex flex-wrap items-center gap-3 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="badge badge-success">
+                  <span className="w-1.5 h-1.5 bg-[var(--success-50)] rounded-full animate-pulse" />
                   Active
                 </span>
-                <span className="px-2.5 py-1 rounded-full bg-white/10 text-white/80 border border-white/10 text-xs font-semibold backdrop-blur-sm">
+                <span className="badge" style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.8)", border: "1px solid rgba(255,255,255,0.1)" }}>
                   Biweekly Battle
                 </span>
-                <span className="flex items-center gap-1.5 text-white/50 text-xs">
+                <span className="flex items-center gap-1.5 text-white/50 text-body-xs">
                   <Users className="w-3.5 h-3.5" />
                   {challenge._count?.submissions ?? 0} joined
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-2 flex items-center gap-3">
-                <Swords className="w-8 h-8 sm:w-10 sm:h-10 text-fuchsia-400 flex-shrink-0" />
+              <h2 className="text-heading-lg sm:text-heading-xl lg:text-heading-2xl text-white tracking-tight mb-2 flex items-center gap-3">
+                <Swords className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary-40)] flex-shrink-0" />
                 {challenge.title}
               </h2>
 
-              <p className="text-white/60 text-sm leading-relaxed max-w-xl mb-4">
+              <p className="text-body-sm text-white/60 leading-relaxed max-w-xl mb-4">
                 Fast-paced competitive live session where two randomly selected volunteers
                 compete to recreate the same scene. Community votes to crown the winner.
               </p>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center gap-1.5 text-amber-400 text-sm font-semibold">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-1.5 text-[var(--warning-50)] text-body-sm font-semibold">
                   <Trophy className="w-4 h-4" />
                   {challenge.prize}
                 </div>
-                <div className="flex items-center gap-1.5 text-white/50 text-sm">
+                <div className="flex items-center gap-1.5 text-white/50 text-body-sm">
                   <Clock className="w-3.5 h-3.5" />
                   <CountdownTimer deadline={challenge.deadline} compact />
                 </div>
@@ -444,40 +404,29 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
             </div>
           </div>
 
-          {/* Content below banner */}
           <div className="border border-t-0 border-border-color bg-surface rounded-b-2xl p-6 sm:p-8">
             <div className="flex flex-col lg:flex-row lg:items-start gap-6">
               <div className="flex-1">
-                <p className="text-xs font-bold uppercase tracking-widest text-muted mb-3">
+                <p className="text-label-xs uppercase tracking-widest text-muted mb-3">
                   Battle Flow
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {battleSteps.map((step, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-background border border-border-color text-xs"
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-surface-hover border border-border-secondary text-body-xs"
                     >
-                      <span className="text-[10px] font-bold text-fuchsia-400 font-mono w-4 flex-shrink-0">
+                      <span className="text-label-xs font-bold text-brand-text font-mono w-4 flex-shrink-0">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <step.icon className="w-3.5 h-3.5 text-muted flex-shrink-0" />
-                      <span className="text-muted truncate">
-                        {step.label}
-                      </span>
+                      <span className="text-muted truncate">{step.label}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div
-                className={cn(
-                  "flex items-center justify-center gap-2 px-6 py-3 rounded-xl flex-shrink-0",
-                  "bg-gradient-to-r from-fuchsia-600 to-rose-600",
-                  "text-white text-sm font-bold",
-                  "group-hover:from-fuchsia-500 group-hover:to-rose-500",
-                  "transition-all duration-300"
-                )}
-              >
+              <div className="btn btn-expressive btn-lg flex-shrink-0 group-hover:shadow-xl">
                 Enter Battle
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>

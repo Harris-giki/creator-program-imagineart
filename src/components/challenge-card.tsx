@@ -37,10 +37,10 @@ export function ChallengeCard({
       <Link href={`/challenges/${challenge.id}`} className="group block">
         <div
           className={cn(
-            "relative overflow-hidden border border-border-color",
-            "bg-surface hover:bg-surface-hover",
+            "card relative overflow-hidden",
+            "hover:bg-surface-hover",
             "transition-all duration-300",
-            "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+            "hover:border-border-brand hover:shadow-lg hover:shadow-primary/5"
           )}
         >
           {challenge.bannerUrl && (
@@ -55,7 +55,7 @@ export function ChallengeCard({
               <div className="absolute top-3 left-3">
                 <span
                   className={cn(
-                    "px-2.5 py-1 text-xs font-semibold uppercase tracking-wider border",
+                    "uppercase tracking-wider",
                     getStatusBadgeClasses(challenge.status)
                   )}
                 >
@@ -64,8 +64,8 @@ export function ChallengeCard({
               </div>
               {challenge.prize && (
                 <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                  <Trophy className="w-4 h-4 text-amber-400" />
-                  <span className="text-sm font-bold text-white">
+                  <Trophy className="w-4 h-4 text-[var(--warning-50)]" />
+                  <span className="text-body-sm font-bold text-white">
                     {challenge.prize}
                   </span>
                 </div>
@@ -74,15 +74,15 @@ export function ChallengeCard({
           )}
 
           {!challenge.bannerUrl && (
-            <div className="relative h-48 bg-gradient-to-br from-violet-600/20 via-purple-600/10 to-fuchsia-600/20 flex items-center justify-center">
-              <div className="absolute inset-0 opacity-30">
-                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(139,92,246,0.1)_50%,transparent_75%)] bg-[length:20px_20px]" />
+            <div className="relative h-48 bg-surface-brand border-b border-border-secondary flex items-center justify-center">
+              <div className="absolute inset-0 opacity-40">
+                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,color-mix(in_srgb,var(--primary-60)_12%,transparent)_50%,transparent_75%)] bg-[length:20px_20px]" />
               </div>
-              <Trophy className="w-12 h-12 text-primary/40" />
-              <div className="absolute top-3 left-3">
+              <Trophy className="w-12 h-12 text-tertiary relative z-[1]" />
+              <div className="absolute top-3 left-3 z-[1]">
                 <span
                   className={cn(
-                    "px-2.5 py-1 text-xs font-semibold uppercase tracking-wider border",
+                    "uppercase tracking-wider",
                     getStatusBadgeClasses(challenge.status)
                   )}
                 >
@@ -93,14 +93,14 @@ export function ChallengeCard({
           )}
 
           <div className="p-5">
-            <h3 className="text-lg font-bold tracking-tight mb-2 group-hover:text-primary transition-colors line-clamp-1">
+            <h3 className="text-heading-xs mb-2 group-hover:text-brand-text transition-colors line-clamp-1">
               {challenge.title}
             </h3>
-            <p className="text-sm text-muted line-clamp-2 mb-4 leading-relaxed">
+            <p className="text-body-sm text-muted line-clamp-2 mb-4 leading-relaxed">
               {challenge.description}
             </p>
 
-            <div className="flex items-center justify-between text-xs text-muted">
+            <div className="flex items-center justify-between text-body-xs text-muted">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5" />
@@ -115,7 +115,7 @@ export function ChallengeCard({
                   )}
                 </span>
               </div>
-              <ArrowRight className="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0 transition-transform duration-300" />
+              <ArrowRight className="w-4 h-4 text-brand-text opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0 transition-transform duration-300" />
             </div>
           </div>
         </div>

@@ -30,25 +30,25 @@ export function formatDeadline(date: Date | string) {
 export function getStatusColor(status: string) {
   switch (status) {
     case "active":
-      return "text-emerald-400";
+      return "text-success";
     case "ended":
-      return "text-zinc-400";
+      return "text-muted";
     case "upcoming":
-      return "text-violet-400";
+      return "text-brand-text";
     default:
-      return "text-zinc-400";
+      return "text-muted";
   }
 }
 
 export function getStatusBadgeClasses(status: string) {
   switch (status) {
     case "active":
-      return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+      return "badge badge-success";
     case "ended":
-      return "bg-zinc-500/10 text-zinc-400 border-zinc-500/20";
+      return "badge badge-neutral";
     case "upcoming":
-      return "bg-violet-500/10 text-violet-400 border-violet-500/20";
+      return "badge badge-brand";
     default:
-      return "bg-zinc-500/10 text-zinc-400 border-zinc-500/20";
+      return "badge badge-neutral";
   }
 }

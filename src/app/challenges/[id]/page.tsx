@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CountdownTimer } from "@/components/countdown-timer";
-import { cn, formatDate, getStatusBadgeClasses } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import {
   Trophy,
   Clock,
@@ -171,12 +171,12 @@ export default function ChallengePage() {
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 pt-16">
-          <div className="h-2 bg-gradient-to-r from-violet-500 to-purple-500" />
+          <div className="h-2 bg-surface-brand" />
           <div className="mx-auto max-w-5xl px-4 py-12 space-y-4">
-            <div className="h-8 w-64 bg-surface animate-pulse" />
-            <div className="h-12 w-full max-w-lg bg-surface animate-pulse" />
-            <div className="h-4 w-full bg-surface animate-pulse" />
-            <div className="h-4 w-3/4 bg-surface animate-pulse" />
+            <div className="h-8 w-64 skeleton" />
+            <div className="h-12 w-full max-w-lg skeleton" />
+            <div className="h-4 w-full skeleton" />
+            <div className="h-4 w-3/4 skeleton" />
           </div>
         </main>
       </div>
@@ -187,10 +187,10 @@ export default function ChallengePage() {
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-1 pt-16 flex items-center justify-center">
+        <main className="flex-1 pt-16 flex items-center justify-center bg-background">
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Challenge Not Found</h2>
-            <Link href="/" className="text-primary hover:underline text-sm">
+            <h2 className="text-heading-md mb-2">Challenge Not Found</h2>
+            <Link href="/" className="btn btn-ghost btn-sm text-brand-text">
               Back to challenges
             </Link>
           </div>
@@ -202,9 +202,6 @@ export default function ChallengePage() {
   const isActive = challenge.status === "active";
   const isSprint = challenge.theme === "Live Sprint";
   const isBattle = challenge.theme === "Prompt Battle";
-  const accentFrom = isBattle ? "from-fuchsia-500" : "from-violet-500";
-  const accentTo = isBattle ? "to-rose-500" : "to-purple-500";
-  const accentText = isBattle ? "text-fuchsia-400" : "text-violet-400";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -234,10 +231,7 @@ export default function ChallengePage() {
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className={cn(
-                  "absolute w-1 h-1 rounded-full",
-                  isBattle ? "bg-fuchsia-400/60" : "bg-violet-400/60"
-                )}
+                className="absolute w-1 h-1 rounded-full bg-[var(--primary-40)]/60"
                 style={{
                   left: `${20 + i * 12}%`,
                   top: `${15 + (i % 3) * 25}%`,
@@ -264,9 +258,9 @@ export default function ChallengePage() {
           {/* Decorative icon */}
           <div className="absolute right-8 sm:right-16 bottom-6 z-10 hidden sm:block">
             {isBattle ? (
-              <Swords className="w-20 h-20 lg:w-28 lg:h-28 text-fuchsia-500/15" strokeWidth={1} />
+              <Swords className="w-20 h-20 lg:w-28 lg:h-28 text-[var(--primary-50)]/15" strokeWidth={1} />
             ) : (
-              <Zap className="w-20 h-20 lg:w-28 lg:h-28 text-violet-500/15" strokeWidth={1} />
+              <Zap className="w-20 h-20 lg:w-28 lg:h-28 text-[var(--primary-50)]/15" strokeWidth={1} />
             )}
           </div>
 
@@ -274,39 +268,34 @@ export default function ChallengePage() {
           <div className="relative z-20 h-full mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-8">
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white mb-6 transition-colors w-fit"
+              className="inline-flex items-center gap-1.5 text-body-sm text-white/50 hover:text-white mb-6 transition-colors w-fit"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to challenges
             </Link>
 
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className={cn(
-                "px-2.5 py-1 text-xs font-bold uppercase tracking-wider border rounded-full backdrop-blur-sm",
-                isActive
-                  ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
-                  : "bg-white/10 text-white/70 border-white/20"
-              )}>
-                {challenge.status}
-              </span>
-              <span className={cn(
-                "px-2.5 py-1 text-xs font-semibold border rounded-full backdrop-blur-sm",
-                isBattle
-                  ? "bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/30"
-                  : "bg-violet-500/20 text-violet-300 border-violet-500/30"
-              )}>
+              {isActive ? (
+                <span className="badge badge-success uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 bg-[var(--success-50)] rounded-full animate-pulse" />
+                  {challenge.status}
+                </span>
+              ) : (
+                <span className="badge badge-neutral uppercase tracking-wider">{challenge.status}</span>
+              )}
+              <span className="badge badge-brand uppercase tracking-wider">
                 {isSprint ? "60 Min Sprint" : isBattle ? "Biweekly Battle" : challenge.theme}
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4 flex items-center gap-3">
-              {isBattle && <Swords className="w-8 h-8 sm:w-10 sm:h-10 text-fuchsia-400 flex-shrink-0" />}
-              {isSprint && <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-violet-400 flex-shrink-0" />}
+            <h1 className="text-heading-lg sm:text-heading-xl lg:text-heading-2xl font-black text-white tracking-tight mb-4 flex items-center gap-3">
+              {isBattle && <Swords className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary-40)] flex-shrink-0" />}
+              {isSprint && <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary-40)] flex-shrink-0" />}
               {challenge.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-5 text-sm">
-              <div className="flex items-center gap-1.5 text-amber-400 font-semibold">
+            <div className="flex flex-wrap items-center gap-5 text-body-sm">
+              <div className="flex items-center gap-1.5 text-[var(--warning-50)] font-semibold">
                 <Trophy className="w-4 h-4" />
                 {challenge.prize}
               </div>
@@ -323,7 +312,7 @@ export default function ChallengePage() {
         </section>
 
         {/* Content */}
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 bg-background">
           <div className="flex flex-col lg:flex-row gap-10">
             {/* Main column */}
             <div className="flex-1 min-w-0">
@@ -332,9 +321,9 @@ export default function ChallengePage() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-8 border border-border-color bg-surface p-6 rounded-2xl"
+                  className="card p-6 mb-8 border-border-color"
                 >
-                  <p className="text-xs font-bold uppercase tracking-widest text-muted mb-4">
+                  <p className="text-label-sm uppercase tracking-widest text-muted mb-4">
                     Time Remaining
                   </p>
                   <CountdownTimer deadline={challenge.deadline} />
@@ -344,7 +333,7 @@ export default function ChallengePage() {
               {/* Event Format Section */}
               {isSprint && (
                 <div className="mb-8">
-                  <h3 className="text-sm font-bold uppercase tracking-widest text-muted mb-4">
+                  <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
                     Event Format - 60 Minutes
                   </h3>
                   <div className="space-y-2">
@@ -354,18 +343,18 @@ export default function ChallengePage() {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1 }}
-                        className="flex items-center gap-4 p-4 border border-border-color bg-surface hover:bg-surface-hover transition-colors rounded-lg"
+                        className="card flex items-center gap-4 p-4 border-border-color hover:bg-surface-hover transition-colors rounded-lg"
                       >
-                        <span className="text-xs font-mono font-bold text-muted w-10 flex-shrink-0">
+                        <span className="text-label-xs font-mono font-bold text-muted w-10 flex-shrink-0">
                           {step.time}
                         </span>
-                        <div className={cn("w-8 h-8 flex items-center justify-center flex-shrink-0", accentText)}>
+                        <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 text-[var(--primary-40)]">
                           <step.icon className="w-4 h-4" />
                         </div>
                         <div className="flex-1">
-                          <span className="text-sm font-semibold">{step.label}</span>
+                          <span className="text-body-sm font-semibold text-foreground">{step.label}</span>
                         </div>
-                        <span className="text-xs font-mono text-muted flex-shrink-0">{step.duration}</span>
+                        <span className="text-label-xs font-mono text-muted flex-shrink-0">{step.duration}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -374,27 +363,27 @@ export default function ChallengePage() {
 
               {isBattle && (
                 <div className="mb-8">
-                  <h3 className="text-sm font-bold uppercase tracking-widest text-muted mb-4">
+                  <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
                     Battle Flow - 20-30 Minutes
                   </h3>
 
                   {/* VS graphic */}
-                  <div className="flex items-center justify-center gap-6 py-6 mb-4 border border-border-color bg-surface rounded-2xl">
+                  <div className="card flex items-center justify-center gap-6 py-6 mb-4 border-border-color">
                     <div className="text-center">
-                      <div className="w-16 h-16 border-2 border-fuchsia-500/30 bg-fuchsia-500/5 flex items-center justify-center mb-2 mx-auto rounded-xl">
-                        <span className="text-xl font-black text-fuchsia-400">P1</span>
+                      <div className="w-16 h-16 border-2 border-border-brand bg-surface-brand flex items-center justify-center mb-2 mx-auto rounded-xl">
+                        <span className="text-heading-xs font-black text-[var(--primary-40)]">P1</span>
                       </div>
-                      <p className="text-xs text-muted">Challenger</p>
+                      <p className="text-body-xs text-muted">Challenger</p>
                     </div>
                     <div className="flex flex-col items-center">
-                      <Swords className="w-8 h-8 text-fuchsia-400 mb-1" />
-                      <span className="text-xs font-black uppercase tracking-widest text-fuchsia-400">VS</span>
+                      <Swords className="w-8 h-8 text-[var(--primary-40)] mb-1" />
+                      <span className="text-label-sm font-black uppercase tracking-widest text-[var(--primary-40)]">VS</span>
                     </div>
                     <div className="text-center">
-                      <div className="w-16 h-16 border-2 border-fuchsia-500/30 bg-fuchsia-500/5 flex items-center justify-center mb-2 mx-auto rounded-xl">
-                        <span className="text-xl font-black text-fuchsia-400">P2</span>
+                      <div className="w-16 h-16 border-2 border-border-brand bg-surface-brand flex items-center justify-center mb-2 mx-auto rounded-xl">
+                        <span className="text-heading-xs font-black text-[var(--primary-40)]">P2</span>
                       </div>
-                      <p className="text-xs text-muted">Challenger</p>
+                      <p className="text-body-xs text-muted">Challenger</p>
                     </div>
                   </div>
 
@@ -405,13 +394,13 @@ export default function ChallengePage() {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.08 }}
-                        className="flex items-center gap-4 p-3.5 border border-border-color bg-surface hover:bg-surface-hover transition-colors rounded-lg"
+                        className="card flex items-center gap-4 p-3.5 border-border-color hover:bg-surface-hover transition-colors rounded-lg"
                       >
-                        <span className="text-xs font-mono font-bold text-fuchsia-400 w-6 flex-shrink-0">
+                        <span className="text-label-xs font-mono font-bold text-[var(--primary-40)] w-6 flex-shrink-0">
                           {step.num}
                         </span>
                         <step.icon className="w-4 h-4 text-muted flex-shrink-0" />
-                        <span className="text-sm">{step.label}</span>
+                        <span className="text-body-sm text-foreground">{step.label}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -420,17 +409,17 @@ export default function ChallengePage() {
 
               {/* Description */}
               <div className="mb-8">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-muted mb-4">
+                <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
                   About This Challenge
                 </h3>
-                <div className="prose-sm text-muted leading-relaxed whitespace-pre-wrap text-sm border border-border-color bg-surface p-6 rounded-2xl">
+                <div className="card prose-sm text-body-sm text-muted leading-relaxed whitespace-pre-wrap p-6 border-border-color">
                   {challenge.description}
                 </div>
               </div>
 
               {/* What to submit */}
               <div className="mb-8">
-                <h3 className="text-sm font-bold uppercase tracking-widest text-muted mb-4">
+                <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
                   What to Submit
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -439,10 +428,10 @@ export default function ChallengePage() {
                     { icon: Sparkles, label: "Prompt Used", desc: "Share your prompt" },
                     { icon: Zap, label: "Workflow Steps", desc: "Optional but encouraged" },
                   ].map((item, i) => (
-                    <div key={i} className="border border-border-color bg-surface p-4 text-center rounded-xl">
-                      <item.icon className={cn("w-5 h-5 mx-auto mb-2", accentText)} />
-                      <p className="text-xs font-bold mb-1">{item.label}</p>
-                      <p className="text-[11px] text-muted">{item.desc}</p>
+                    <div key={i} className="card p-4 text-center border-border-color">
+                      <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--primary-40)]" />
+                      <p className="text-label-sm font-bold mb-1 text-foreground">{item.label}</p>
+                      <p className="text-body-xs text-muted">{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -451,8 +440,8 @@ export default function ChallengePage() {
               {/* Gallery */}
               {submissions.length > 0 && (
                 <div className="mb-8">
-                  <h3 className="text-sm font-bold uppercase tracking-widest text-muted mb-4 flex items-center gap-2">
-                    <Users className="w-4 h-4 text-primary" />
+                  <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4 flex items-center gap-2">
+                    <Users className="w-4 h-4 text-brand-text" />
                     Submissions ({submissions.length})
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -462,7 +451,7 @@ export default function ChallengePage() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.05 }}
-                        className="group relative border border-border-color bg-surface overflow-hidden rounded-xl"
+                        className="group relative card overflow-hidden p-0 border-border-color"
                       >
                         <div className="relative aspect-square">
                           <Image
@@ -473,11 +462,11 @@ export default function ChallengePage() {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <p className="text-white text-sm font-semibold truncate">
+                            <p className="text-white text-body-sm font-semibold truncate">
                               {sub.userName}
                             </p>
                             {sub.description && (
-                              <p className="text-white/70 text-xs truncate mt-0.5">
+                              <p className="text-white/70 text-body-xs truncate mt-0.5">
                                 {sub.description}
                               </p>
                             )}
@@ -493,14 +482,19 @@ export default function ChallengePage() {
             {/* Sidebar */}
             <div className="lg:w-80 flex-shrink-0 space-y-4">
               {/* Prize card */}
-              <div className={cn("border bg-surface overflow-hidden rounded-2xl", isBattle ? "border-fuchsia-500/20" : "border-violet-500/20")}>
-                <div className={cn("h-1 bg-gradient-to-r rounded-t-2xl", accentFrom, accentTo)} />
+              <div className="card border-border-brand overflow-hidden">
+                <div
+                  className="h-1 w-full rounded-t-2xl"
+                  style={{
+                    background: `linear-gradient(90deg, var(--primary-60), var(--primary-50))`,
+                  }}
+                />
                 <div className="p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <Gift className={cn("w-5 h-5", accentText)} />
-                    <span className="text-xs font-bold uppercase tracking-widest text-muted">Prize</span>
+                    <Gift className="w-5 h-5 text-brand-text" />
+                    <span className="text-label-sm uppercase tracking-widest text-muted">Prize</span>
                   </div>
-                  <p className="text-2xl font-black">{challenge.prize}</p>
+                  <p className="text-heading-lg font-black text-foreground">{challenge.prize}</p>
                 </div>
               </div>
 
@@ -510,15 +504,8 @@ export default function ChallengePage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   onClick={() => setShowForm(true)}
-                  className={cn(
-                    "w-full py-3.5 font-bold text-sm text-white rounded-xl",
-                    "bg-gradient-to-r",
-                    accentFrom,
-                    accentTo,
-                    "hover:opacity-90",
-                    "transition-all duration-200",
-                    "flex items-center justify-center gap-2"
-                  )}
+                  type="button"
+                  className="btn btn-expressive btn-lg w-full"
                 >
                   <Upload className="w-4 h-4" />
                   Submit Your Entry
@@ -531,13 +518,13 @@ export default function ChallengePage() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="border border-emerald-500/30 bg-emerald-500/5 p-5 rounded-xl"
+                    className="card p-5 border-border-color bg-success-surface"
                   >
                     <div className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                      <CheckCircle className="w-5 h-5 text-[var(--success-50)] flex-shrink-0" />
                       <div>
-                        <h3 className="font-bold text-sm">Submitted!</h3>
-                        <p className="text-xs text-muted mt-0.5">
+                        <h3 className="text-label-md font-bold text-foreground">Submitted!</h3>
+                        <p className="text-body-xs text-muted mt-0.5">
                           Your entry has been recorded. Good luck!
                         </p>
                       </div>
@@ -547,7 +534,7 @@ export default function ChallengePage() {
               </AnimatePresence>
 
               {/* Quick info */}
-              <div className="border border-border-color bg-surface divide-y divide-border-color rounded-2xl overflow-hidden">
+              <div className="card divide-y divide-border-color overflow-hidden border-border-color p-0">
                 {[
                   { label: "Format", value: isSprint ? "60 min sprint" : "20 min battle" },
                   { label: "Frequency", value: isSprint ? "Weekly" : "Biweekly" },
@@ -556,15 +543,15 @@ export default function ChallengePage() {
                   { label: "Entries", value: String(challenge._count.submissions) },
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between px-5 py-3">
-                    <span className="text-xs text-muted">{row.label}</span>
-                    <span className="text-xs font-semibold">{row.value}</span>
+                    <span className="text-body-xs text-muted">{row.label}</span>
+                    <span className="text-label-sm font-semibold text-foreground">{row.value}</span>
                   </div>
                 ))}
               </div>
 
               {/* Goals */}
-              <div className="border border-border-color bg-surface p-5 rounded-2xl">
-                <p className="text-xs font-bold uppercase tracking-widest text-muted mb-3">Objectives</p>
+              <div className="card p-5 border-border-color">
+                <p className="text-label-sm uppercase tracking-widest text-muted mb-3">Objectives</p>
                 <ul className="space-y-2">
                   {(isSprint
                     ? [
@@ -580,8 +567,8 @@ export default function ChallengePage() {
                         "Build competitive culture",
                       ]
                   ).map((goal, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-muted">
-                      <CheckCircle className={cn("w-3.5 h-3.5 flex-shrink-0 mt-0.5", accentText)} />
+                    <li key={i} className="flex items-start gap-2 text-body-xs text-muted">
+                      <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-[var(--primary-40)]" />
                       {goal}
                     </li>
                   ))}
@@ -599,15 +586,17 @@ export default function ChallengePage() {
                 exit={{ opacity: 0, height: 0 }}
                 className="mt-4 overflow-hidden"
               >
-                <div className="border border-border-color bg-surface p-6 sm:p-8 rounded-2xl">
+                <div className="card p-6 sm:p-8 border-border-color">
                   <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-lg font-black flex items-center gap-2">
-                      <Upload className={cn("w-5 h-5", accentText)} />
+                    <h3 className="text-heading-xs font-black flex items-center gap-2 text-foreground">
+                      <Upload className="w-5 h-5 text-[var(--primary-40)]" />
                       Submit Your Entry
                     </h3>
                     <button
+                      type="button"
                       onClick={() => setShowForm(false)}
-                      className="p-1.5 hover:bg-surface-hover transition-colors"
+                      className="btn btn-ghost btn-sm p-0 w-9 h-9"
+                      aria-label="Close form"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -616,7 +605,7 @@ export default function ChallengePage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-muted mb-2">
+                        <label className="block text-label-sm uppercase tracking-wider text-muted mb-2">
                           Your Name *
                         </label>
                         <input
@@ -624,12 +613,12 @@ export default function ChallengePage() {
                           required
                           value={form.userName}
                           onChange={(e) => setForm({ ...form, userName: e.target.value })}
-                          className="w-full px-3 py-2.5 bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors rounded-lg"
+                          className="input"
                           placeholder="Your name"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-muted mb-2">
+                        <label className="block text-label-sm uppercase tracking-wider text-muted mb-2">
                           Email *
                         </label>
                         <input
@@ -637,35 +626,35 @@ export default function ChallengePage() {
                           required
                           value={form.email}
                           onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          className="w-full px-3 py-2.5 bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors rounded-lg"
+                          className="input"
                           placeholder="you@example.com"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-muted mb-2">
+                      <label className="block text-label-sm uppercase tracking-wider text-muted mb-2">
                         Prompt / Description
                       </label>
                       <textarea
                         value={form.description}
                         onChange={(e) => setForm({ ...form, description: e.target.value })}
                         rows={3}
-                        className="w-full px-3 py-2.5 bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors resize-none rounded-lg"
+                        className="input resize-none min-h-[5rem]"
                         placeholder="Share the prompt you used and any workflow details..."
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-muted mb-2">
+                      <label className="block text-label-sm uppercase tracking-wider text-muted mb-2">
                         Upload Creation *
                       </label>
                       <div
                         className={cn(
-                          "relative border-2 border-dashed border-border-color p-8 rounded-xl",
-                          "hover:border-primary/40 transition-colors cursor-pointer",
+                          "relative border-2 border-dashed border-border-color p-8 rounded-xl bg-surface",
+                          "hover:border-border-brand transition-colors cursor-pointer",
                           "flex flex-col items-center justify-center gap-3",
-                          preview && "border-primary/30"
+                          preview && "border-border-brand"
                         )}
                         onClick={() => document.getElementById("file-input")?.click()}
                       >
@@ -676,8 +665,8 @@ export default function ChallengePage() {
                         ) : (
                           <>
                             <ImageIcon className="w-8 h-8 text-muted" />
-                            <p className="text-sm text-muted">Click to upload your creation</p>
-                            <p className="text-xs text-muted">PNG, JPG, GIF, WEBP, MP4</p>
+                            <p className="text-body-sm text-muted">Click to upload your creation</p>
+                            <p className="text-body-xs text-tertiary">PNG, JPG, GIF, WEBP, MP4</p>
                           </>
                         )}
                         <input
@@ -691,7 +680,7 @@ export default function ChallengePage() {
                     </div>
 
                     {error && (
-                      <div className="flex items-center gap-2 text-red-400 text-sm">
+                      <div className="flex items-center gap-2 text-error text-body-sm">
                         <AlertCircle className="w-4 h-4" />
                         {error}
                       </div>
@@ -701,13 +690,8 @@ export default function ChallengePage() {
                       type="submit"
                       disabled={submitting}
                       className={cn(
-                        "w-full sm:w-auto px-10 py-3 font-bold text-sm text-white rounded-xl",
-                        "bg-gradient-to-r",
-                        accentFrom,
-                        accentTo,
-                        "hover:opacity-90",
-                        "disabled:opacity-50 disabled:cursor-not-allowed",
-                        "transition-all duration-200"
+                        "btn btn-expressive btn-md w-full sm:w-auto",
+                        "disabled:opacity-50 disabled:cursor-not-allowed"
                       )}
                     >
                       {submitting ? "Submitting..." : "Submit Entry"}

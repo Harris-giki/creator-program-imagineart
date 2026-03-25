@@ -19,17 +19,22 @@ export function ThemeToggle() {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
         "relative w-9 h-9 flex items-center justify-center rounded-full",
-        "border border-border-color hover:border-primary/40",
-        "bg-surface hover:bg-surface-hover",
-        "transition-all duration-200"
+        "border border-border-color hover:border-border-brand",
+        "bg-surface hover:bg-surface-brand",
+        "transition-all duration-300"
       )}
       aria-label="Toggle theme"
     >
-      {isDark ? (
-        <Sun className="w-4 h-4 text-amber-400" />
-      ) : (
-        <Moon className="w-4 h-4 text-violet-600" />
-      )}
+      <div
+        className="transition-transform duration-500"
+        style={{ transform: isDark ? "rotate(180deg)" : "rotate(0deg)" }}
+      >
+        {isDark ? (
+          <Sun className="w-4 h-4 text-[var(--primary-40)]" />
+        ) : (
+          <Moon className="w-4 h-4 text-[var(--primary-60)]" />
+        )}
+      </div>
     </button>
   );
 }

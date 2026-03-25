@@ -97,38 +97,33 @@ export default function AdminDashboard() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
-              <div className="flex items-center gap-2 text-primary text-xs font-semibold uppercase tracking-widest mb-1">
+              <div className="flex items-center gap-2 text-label-xs text-brand-text uppercase tracking-widest mb-1">
                 <LayoutDashboard className="w-3.5 h-3.5" />
                 Admin Dashboard
               </div>
-              <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
+              <h1 className="text-heading-lg sm:text-heading-xl tracking-tight">
                 Manage Challenges
               </h1>
             </div>
             <div className="flex items-center gap-3">
               <Link
                 href="/admin/creators"
-                className="flex items-center gap-1.5 px-3 py-2 text-sm text-muted hover:text-foreground border border-border-color hover:border-primary/30 transition-all rounded-lg"
+                className="btn btn-secondary btn-sm"
               >
                 <UserPlus className="w-3.5 h-3.5" />
                 Creator Program
               </Link>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 px-3 py-2 text-sm text-muted hover:text-foreground border border-border-color hover:border-red-500/30 transition-all rounded-lg"
+                type="button"
+                className="btn btn-secondary btn-sm"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 Logout
               </button>
               <Link
                 href="/admin/challenges/new"
-                className={cn(
-                  "flex items-center gap-1.5 px-4 py-2 rounded-xl",
-                  "bg-gradient-to-r from-violet-600 to-purple-600",
-                  "text-white text-sm font-semibold",
-                  "hover:from-violet-500 hover:to-purple-500",
-                  "transition-all duration-200"
-                )}
+                className="btn btn-expressive btn-lg"
               >
                 <Plus className="w-4 h-4" />
                 New Challenge
@@ -138,33 +133,33 @@ export default function AdminDashboard() {
 
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-            <div className="border border-border-color bg-surface p-5 rounded-xl">
-              <p className="text-xs text-muted uppercase tracking-wider mb-1">
+            <div className="card p-5">
+              <p className="text-label-xs text-muted uppercase tracking-wider mb-1">
                 Total Challenges
               </p>
-              <p className="text-2xl font-black">{challenges.length}</p>
+              <p className="text-heading-md font-black">{challenges.length}</p>
             </div>
-            <div className="border border-border-color bg-surface p-5 rounded-xl">
-              <p className="text-xs text-muted uppercase tracking-wider mb-1">
+            <div className="card p-5">
+              <p className="text-label-xs text-muted uppercase tracking-wider mb-1">
                 Active
               </p>
-              <p className="text-2xl font-black text-emerald-400">
+              <p className="text-heading-md font-black text-success">
                 {activeChallenges}
               </p>
             </div>
-            <div className="border border-border-color bg-surface p-5 rounded-xl">
-              <p className="text-xs text-muted uppercase tracking-wider mb-1">
+            <div className="card p-5">
+              <p className="text-label-xs text-muted uppercase tracking-wider mb-1">
                 Total Submissions
               </p>
-              <p className="text-2xl font-black text-primary">
+              <p className="text-heading-md font-black text-brand-text">
                 {totalSubmissions}
               </p>
             </div>
-            <div className="border border-border-color bg-surface p-5 rounded-xl">
-              <p className="text-xs text-muted uppercase tracking-wider mb-1">
+            <div className="card p-5">
+              <p className="text-label-xs text-muted uppercase tracking-wider mb-1">
                 Ended
               </p>
-              <p className="text-2xl font-black text-muted">
+              <p className="text-heading-md font-black text-muted">
                 {challenges.filter((c) => c.status === "ended").length}
               </p>
             </div>
@@ -176,20 +171,20 @@ export default function AdminDashboard() {
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-24 border border-border-color bg-surface animate-pulse rounded-xl"
+                  className="skeleton h-24 border border-border-secondary rounded-2xl"
                 />
               ))}
             </div>
           ) : challenges.length === 0 ? (
-            <div className="text-center py-20 border border-dashed border-border-color rounded-2xl">
+            <div className="text-center py-20 card border-dashed border-border-color rounded-2xl">
               <AlertCircle className="w-10 h-10 text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No challenges yet</h3>
-              <p className="text-sm text-muted mb-6">
+              <h3 className="text-heading-xs mb-2">No challenges yet</h3>
+              <p className="text-body-sm text-muted mb-6">
                 Create your first challenge to get started.
               </p>
               <Link
                 href="/admin/challenges/new"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-semibold"
+                className="btn btn-expressive btn-md inline-flex"
               >
                 <Plus className="w-4 h-4" />
                 Create Challenge
@@ -203,9 +198,9 @@ export default function AdminDashboard() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="border border-border-color bg-surface hover:bg-surface-hover transition-colors rounded-xl"
+                  className="card p-4 hover:bg-surface-hover transition-colors"
                 >
-                  <div className="flex items-center gap-4 p-4">
+                  <div className="flex items-center gap-4">
                     {challenge.bannerUrl ? (
                       <div className="relative w-20 h-14 flex-shrink-0 overflow-hidden rounded-lg">
                         <Image
@@ -216,26 +211,26 @@ export default function AdminDashboard() {
                         />
                       </div>
                     ) : (
-                      <div className="w-20 h-14 flex-shrink-0 rounded-lg bg-gradient-to-br from-violet-600/20 to-purple-600/20 flex items-center justify-center">
-                        <Trophy className="w-5 h-5 text-primary/40" />
+                      <div className="w-20 h-14 flex-shrink-0 rounded-lg bg-surface-brand border border-border-secondary flex items-center justify-center">
+                        <Trophy className="w-5 h-5 text-tertiary" />
                       </div>
                     )}
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-bold text-sm truncate">
+                        <h3 className="text-label-md truncate text-brand-text">
                           {challenge.title}
                         </h3>
                         <span
                           className={cn(
-                            "px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider border flex-shrink-0 rounded-full",
+                            "flex-shrink-0 uppercase tracking-wider",
                             getStatusBadgeClasses(challenge.status)
                           )}
                         >
                           {challenge.status}
                         </span>
                       </div>
-                      <div className="flex items-center gap-4 text-xs text-muted">
+                      <div className="flex items-center gap-4 text-body-xs text-muted">
                         <span className="flex items-center gap-1">
                           <Users className="w-3 h-3" />
                           {challenge._count.submissions} submissions
@@ -253,14 +248,14 @@ export default function AdminDashboard() {
                     <div className="flex items-center gap-1 flex-shrink-0">
                       <Link
                         href={`/admin/challenges/${challenge.id}/submissions`}
-                        className="p-2 rounded-lg hover:bg-primary/10 text-muted hover:text-primary transition-colors"
+                        className="btn btn-ghost btn-sm p-0 w-9 h-9 text-muted hover:text-brand-text"
                         title="View submissions"
                       >
                         <Eye className="w-4 h-4" />
                       </Link>
                       <Link
                         href={`/admin/challenges/${challenge.id}`}
-                        className="p-2 rounded-lg hover:bg-primary/10 text-muted hover:text-primary transition-colors"
+                        className="btn btn-ghost btn-sm p-0 w-9 h-9 text-muted hover:text-brand-text"
                         title="Edit challenge"
                       >
                         <Pencil className="w-4 h-4" />
@@ -268,8 +263,9 @@ export default function AdminDashboard() {
                       <button
                         onClick={() => handleDelete(challenge.id)}
                         disabled={deleting === challenge.id}
-                        className="p-2 rounded-lg hover:bg-red-500/10 text-muted hover:text-red-400 transition-colors disabled:opacity-50"
+                        className="btn btn-ghost btn-sm p-0 w-9 h-9 text-muted hover:text-error disabled:opacity-50"
                         title="Delete challenge"
+                        type="button"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

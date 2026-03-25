@@ -100,13 +100,13 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Banner Upload */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+        <label className="block text-label-xs text-muted uppercase tracking-wider mb-2">
           Banner Image
         </label>
         <div
           className={cn(
             "relative border-2 border-dashed border-border-color cursor-pointer overflow-hidden rounded-xl",
-            "hover:border-primary/40 transition-colors",
+            "hover:border-border-brand transition-colors",
             bannerPreview ? "h-48" : "h-40"
           )}
           onClick={() => fileRef.current?.click()}
@@ -126,16 +126,16 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
                   setBannerPreview("");
                   setForm({ ...form, bannerUrl: "" });
                 }}
-                className="absolute top-2 right-2 p-1 rounded-lg bg-black/50 hover:bg-black/70 text-white transition-colors"
+                className="absolute top-2 right-2 btn btn-ghost btn-sm p-0 w-9 h-9 bg-black/50 hover:bg-black/70 text-white border-0 hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center h-full gap-2">
+            <div className="flex flex-col items-center justify-center h-full gap-2 bg-surface-secondary">
               <Upload className="w-8 h-8 text-muted" />
-              <p className="text-sm text-muted">Upload banner image</p>
-              <p className="text-xs text-muted">
+              <p className="text-body-sm text-muted">Upload banner image</p>
+              <p className="text-body-xs text-tertiary">
                 Recommended: 1200x400px
               </p>
             </div>
@@ -152,7 +152,7 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
 
       {/* Title */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+        <label className="block text-label-xs text-muted uppercase tracking-wider mb-2">
           Challenge Title *
         </label>
         <input
@@ -160,14 +160,14 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
           required
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
-          className="w-full px-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+          className="input"
           placeholder="e.g. Make Your Action Scene"
         />
       </div>
 
       {/* Description */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+        <label className="block text-label-xs text-muted uppercase tracking-wider mb-2">
           Description *
         </label>
         <textarea
@@ -175,7 +175,7 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           rows={5}
-          className="w-full px-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors resize-none"
+          className="input resize-none"
           placeholder="Describe the challenge, rules, and what participants should create..."
         />
       </div>
@@ -183,35 +183,35 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Theme */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+          <label className="block text-label-xs text-muted uppercase tracking-wider mb-2">
             Theme / Category
           </label>
           <input
             type="text"
             value={form.theme}
             onChange={(e) => setForm({ ...form, theme: e.target.value })}
-            className="w-full px-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+            className="input"
             placeholder="e.g. Action, Fantasy, Sci-Fi"
           />
         </div>
 
         {/* Prize */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+          <label className="block text-label-xs text-muted uppercase tracking-wider mb-2">
             Prize
           </label>
           <input
             type="text"
             value={form.prize}
             onChange={(e) => setForm({ ...form, prize: e.target.value })}
-            className="w-full px-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+            className="input"
             placeholder="e.g. $500,000"
           />
         </div>
 
         {/* Deadline */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+          <label className="block text-label-xs text-muted uppercase tracking-wider mb-2">
             Deadline *
           </label>
           <input
@@ -219,19 +219,19 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
             required
             value={form.deadline}
             onChange={(e) => setForm({ ...form, deadline: e.target.value })}
-            className="w-full px-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+            className="input"
           />
         </div>
 
         {/* Status */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">
+          <label className="block text-label-xs text-muted uppercase tracking-wider mb-2">
             Status
           </label>
           <select
             value={form.status}
             onChange={(e) => setForm({ ...form, status: e.target.value })}
-            className="w-full px-3 py-2.5 rounded-lg bg-background border border-border-color text-sm focus:outline-none focus:border-primary transition-colors"
+            className="input"
           >
             <option value="active">Active</option>
             <option value="upcoming">Upcoming</option>
@@ -241,8 +241,8 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
       </div>
 
       {error && (
-        <div className="flex items-center gap-2 text-red-400 text-sm">
-          <AlertCircle className="w-4 h-4" />
+        <div className="flex items-center gap-2 text-body-sm text-error">
+          <AlertCircle className="w-4 h-4 shrink-0" />
           {error}
         </div>
       )}
@@ -251,13 +251,7 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
         <button
           type="submit"
           disabled={saving}
-          className={cn(
-            "flex items-center gap-2 px-6 py-2.5 rounded-xl",
-            "bg-gradient-to-r from-violet-600 to-purple-600",
-            "text-white text-sm font-semibold",
-            "hover:from-violet-500 hover:to-purple-500",
-            "disabled:opacity-50 transition-all duration-200"
-          )}
+          className="btn btn-expressive btn-md disabled:opacity-50"
         >
           {saving ? (
             <Loader2 className="w-4 h-4 animate-spin" />
@@ -273,7 +267,7 @@ export function ChallengeForm({ initialData, challengeId }: Props) {
         <button
           type="button"
           onClick={() => router.push("/admin")}
-          className="px-6 py-2.5 rounded-lg text-sm text-muted border border-border-color hover:text-foreground hover:border-foreground/20 transition-colors"
+          className="btn btn-secondary btn-sm"
         >
           Cancel
         </button>

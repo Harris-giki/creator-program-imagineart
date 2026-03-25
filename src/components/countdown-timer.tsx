@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 
 interface CountdownTimerProps {
   deadline: string;
@@ -30,19 +29,19 @@ export function CountdownTimer({ deadline, compact = false }: CountdownTimerProp
   }, [deadline]);
 
   if (time.ended) {
-    return <span className="text-muted font-medium">Ended</span>;
+    return <span className="badge badge-neutral">Ended</span>;
   }
 
   if (compact) {
     return (
-      <span className="font-mono text-xs">
+      <span className="font-mono text-body-xs">
         {time.days}d {time.hours}h {time.minutes}m
       </span>
     );
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2.5">
       {[
         { value: time.days, label: "Days" },
         { value: time.hours, label: "Hours" },
@@ -51,15 +50,12 @@ export function CountdownTimer({ deadline, compact = false }: CountdownTimerProp
       ].map(({ value, label }) => (
         <div
           key={label}
-          className={cn(
-            "flex flex-col items-center justify-center",
-            "w-16 h-16 rounded-xl border border-border-color bg-surface"
-          )}
+          className="flex flex-col items-center justify-center w-16 h-16 rounded-xl border border-border-color bg-surface"
         >
-          <span className="text-xl font-bold font-mono text-primary">
+          <span className="text-heading-xs font-mono text-brand-text">
             {String(value).padStart(2, "0")}
           </span>
-          <span className="text-[10px] uppercase tracking-wider text-muted">
+          <span className="text-label-xs text-tertiary uppercase">
             {label}
           </span>
         </div>

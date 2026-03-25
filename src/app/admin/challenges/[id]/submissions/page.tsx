@@ -71,7 +71,7 @@ export default function SubmissionsPage() {
               {[...Array(5)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-20 bg-surface animate-pulse border border-border-color rounded-xl"
+                  className="skeleton h-20 border border-border-secondary rounded-xl"
                 />
               ))}
             </div>
@@ -89,7 +89,7 @@ export default function SubmissionsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
           <Link
             href="/admin"
-            className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-body-sm text-muted hover:text-brand-text mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to dashboard
@@ -98,13 +98,13 @@ export default function SubmissionsPage() {
           <div className="flex items-center justify-between mb-8">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <Users className="w-5 h-5 text-primary" />
-                <h1 className="text-2xl font-black tracking-tight">
+                <Users className="w-5 h-5 text-brand-text" />
+                <h1 className="text-heading-lg tracking-tight">
                   Submissions
                 </h1>
               </div>
               {challenge && (
-                <p className="text-sm text-muted">
+                <p className="text-body-sm text-muted">
                   for &ldquo;{challenge.title}&rdquo; &middot;{" "}
                   {submissions.length} entries
                 </p>
@@ -113,39 +113,39 @@ export default function SubmissionsPage() {
           </div>
 
           {submissions.length === 0 ? (
-            <div className="text-center py-20 border border-dashed border-border-color rounded-2xl">
+            <div className="text-center py-20 card border-dashed border-border-color rounded-2xl">
               <FileText className="w-10 h-10 text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="text-heading-xs mb-2">
                 No submissions yet
               </h3>
-              <p className="text-sm text-muted">
+              <p className="text-body-sm text-muted">
                 Submissions will appear here once participants start entering.
               </p>
             </div>
           ) : (
             <>
               {/* Table view */}
-              <div className="border border-border-color overflow-hidden rounded-2xl">
+              <div className="card overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-surface border-b border-border-color">
-                        <th className="text-left text-xs font-semibold uppercase tracking-wider text-muted px-4 py-3">
+                      <tr className="bg-surface-secondary border-b border-border-color">
+                        <th className="text-left text-label-xs uppercase tracking-wider text-muted px-4 py-3">
                           Preview
                         </th>
-                        <th className="text-left text-xs font-semibold uppercase tracking-wider text-muted px-4 py-3">
+                        <th className="text-left text-label-xs uppercase tracking-wider text-muted px-4 py-3">
                           Name
                         </th>
-                        <th className="text-left text-xs font-semibold uppercase tracking-wider text-muted px-4 py-3">
+                        <th className="text-left text-label-xs uppercase tracking-wider text-muted px-4 py-3">
                           Email
                         </th>
-                        <th className="text-left text-xs font-semibold uppercase tracking-wider text-muted px-4 py-3">
+                        <th className="text-left text-label-xs uppercase tracking-wider text-muted px-4 py-3">
                           Description
                         </th>
-                        <th className="text-left text-xs font-semibold uppercase tracking-wider text-muted px-4 py-3">
+                        <th className="text-left text-label-xs uppercase tracking-wider text-muted px-4 py-3">
                           Date
                         </th>
-                        <th className="text-left text-xs font-semibold uppercase tracking-wider text-muted px-4 py-3">
+                        <th className="text-left text-label-xs uppercase tracking-wider text-muted px-4 py-3">
                           Actions
                         </th>
                       </tr>
@@ -170,26 +170,26 @@ export default function SubmissionsPage() {
                             </div>
                           </td>
                           <td className="px-4 py-3">
-                            <p className="font-semibold text-sm">
+                            <p className="text-label-sm text-brand-text">
                               {sub.userName}
                             </p>
                           </td>
                           <td className="px-4 py-3">
                             <a
                               href={`mailto:${sub.email}`}
-                              className="text-sm text-primary hover:underline flex items-center gap-1"
+                              className="text-body-sm text-brand-text hover:underline flex items-center gap-1"
                             >
                               <Mail className="w-3 h-3" />
                               {sub.email}
                             </a>
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-sm text-muted truncate max-w-[200px]">
+                            <p className="text-body-sm text-muted truncate max-w-[200px]">
                               {sub.description || "-"}
                             </p>
                           </td>
                           <td className="px-4 py-3">
-                            <span className="text-sm text-muted flex items-center gap-1">
+                            <span className="text-body-sm text-muted flex items-center gap-1">
                               <Calendar className="w-3 h-3" />
                               {formatDate(sub.createdAt)}
                             </span>
@@ -198,15 +198,16 @@ export default function SubmissionsPage() {
                             <div className="flex items-center gap-1">
                               <button
                                 onClick={() => setSelected(sub)}
-                                className="p-1.5 rounded-lg hover:bg-primary/10 text-muted hover:text-primary transition-colors"
+                                className="btn btn-ghost btn-sm p-0 w-9 h-9 text-muted hover:text-brand-text"
                                 title="View"
+                                type="button"
                               >
                                 <Eye className="w-4 h-4" />
                               </button>
                               <a
                                 href={sub.fileUrl}
                                 download
-                                className="p-1.5 rounded-lg hover:bg-primary/10 text-muted hover:text-primary transition-colors"
+                                className="btn btn-ghost btn-sm p-0 w-9 h-9 text-muted hover:text-brand-text"
                                 title="Download"
                               >
                                 <Download className="w-4 h-4" />
@@ -229,12 +230,13 @@ export default function SubmissionsPage() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="relative max-w-3xl w-full border border-border-color bg-surface rounded-2xl"
+                    className="relative max-w-3xl w-full card"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
                       onClick={() => setSelected(null)}
-                      className="absolute top-3 right-3 z-10 p-1.5 rounded-lg bg-black/50 hover:bg-black/70 text-white transition-colors"
+                      className="absolute top-3 right-3 z-10 btn btn-ghost btn-sm p-0 w-9 h-9 bg-black/50 hover:bg-black/70 text-white border-0 hover:text-white"
+                      type="button"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -247,14 +249,14 @@ export default function SubmissionsPage() {
                       />
                     </div>
                     <div className="p-5">
-                      <h3 className="font-bold text-lg">{selected.userName}</h3>
-                      <p className="text-sm text-primary">{selected.email}</p>
+                      <h3 className="text-heading-xs">{selected.userName}</h3>
+                      <p className="text-body-sm text-brand-text">{selected.email}</p>
                       {selected.description && (
-                        <p className="text-sm text-muted mt-2">
+                        <p className="text-body-sm text-muted mt-2">
                           {selected.description}
                         </p>
                       )}
-                      <p className="text-xs text-muted mt-2">
+                      <p className="text-body-xs text-muted mt-2">
                         Submitted {formatDate(selected.createdAt)}
                       </p>
                     </div>
