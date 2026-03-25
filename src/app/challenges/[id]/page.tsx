@@ -84,21 +84,6 @@ export default function ChallengePage() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
 
-  useEffect(() => {
-    fetch("/api/user")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.user) {
-          setForm((f) => ({
-            ...f,
-            userName: data.user.name || data.user.email.split("@")[0],
-            email: data.user.email,
-          }));
-        }
-      })
-      .catch(() => {});
-  }, []);
-
   const fetchData = useCallback(async () => {
     try {
       const [cRes, sRes] = await Promise.all([

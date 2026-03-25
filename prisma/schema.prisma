@@ -14,20 +14,6 @@ model Admin {
   createdAt DateTime @default(now())
 }
 
-model ApprovedCreator {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
-  addedAt DateTime @default(now())
-}
-
-model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  name      String?
-  password  String
-  createdAt DateTime @default(now())
-}
-
 model Challenge {
   id          String       @id @default(auto()) @map("_id") @db.ObjectId
   title       String

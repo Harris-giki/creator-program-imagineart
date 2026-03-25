@@ -31,8 +31,8 @@ export function Footer() {
             <Link href="/" className="text-body-sm text-muted hover:text-brand-text transition-colors">
               Challenges
             </Link>
-            <Link href="/auth" className="text-body-sm text-muted hover:text-brand-text transition-colors">
-              Creator Login
+            <Link href="/admin/login" className="text-body-sm text-muted hover:text-brand-text transition-colors">
+              Admin
             </Link>
             <a
               href="mailto:m.haris@imagine.art"

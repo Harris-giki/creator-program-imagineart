@@ -17,7 +17,6 @@ import {
   LayoutDashboard,
   LogOut,
   AlertCircle,
-  UserPlus,
 } from "lucide-react";
 
 interface Challenge {
@@ -106,13 +105,6 @@ export default function AdminDashboard() {
               </h1>
             </div>
             <div className="flex items-center gap-3">
-              <Link
-                href="/admin/creators"
-                className="btn btn-secondary btn-sm"
-              >
-                <UserPlus className="w-3.5 h-3.5" />
-                Creator Program
-              </Link>
               <button
                 onClick={handleLogout}
                 type="button"
