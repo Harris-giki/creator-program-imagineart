@@ -20,16 +20,6 @@ async function main() {
     console.log("- Admin already exists");
   }
 
-  // Add sample approved creators for testing (optional)
-  const sampleEmails = ["creator1@example.com", "creator2@example.com"];
-  for (const email of sampleEmails) {
-    const exists = await prisma.approvedCreator.findUnique({ where: { email } });
-    if (!exists) {
-      await prisma.approvedCreator.create({ data: { email } });
-      console.log(`✓ Added approved creator: ${email}`);
-    }
-  }
-
   // Create sample challenges (if none exist)
   const challengeCount = await prisma.challenge.count();
   if (challengeCount === 0) {
