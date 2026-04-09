@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, User } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -42,9 +42,10 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Center Nav Links */}
-          <div className="flex items-center gap-1">
+          {/* Right Actions */}
+          <div className="flex items-center gap-2">
             <NavLink href="/" active={pathname === "/"}>
+              <User className="w-3.5 h-3.5" />
               Challenges
             </NavLink>
             {isAdmin && (
@@ -53,10 +54,6 @@ export function Navbar() {
                 Dashboard
               </NavLink>
             )}
-          </div>
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-2">
             <ThemeToggle />
           </div>
         </div>
@@ -80,8 +77,8 @@ function NavLink({
       className={cn(
         "flex items-center gap-1.5 px-3.5 py-2 text-body-sm font-medium rounded-full transition-all duration-200",
         active
-          ? "text-brand-text bg-surface-brand"
-          : "text-muted hover:text-foreground hover:bg-surface-hover"
+          ? "text-brand-text bg-surface-brand border border-border-brand"
+          : "text-muted hover:text-foreground hover:bg-surface-hover border border-border-color"
       )}
     >
       {children}

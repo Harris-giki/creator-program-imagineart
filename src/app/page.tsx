@@ -20,6 +20,7 @@ import {
   Mic,
   Vote,
   Gift,
+  Download,
 } from "lucide-react";
 
 interface Challenge {
@@ -72,17 +73,7 @@ export default function Home() {
               transition={{ duration: 0.7 }}
               className="text-left max-w-xl"
             >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="badge badge-success mb-8"
-              >
-                <span className="w-1.5 h-1.5 bg-[var(--success-50)] rounded-full animate-pulse" />
-                Live Discord Events
-              </motion.div>
-
-              <h1 className="text-display-xs sm:text-display-sm lg:text-display-md mb-6">
+              <h1 className="text-display-xs sm:text-display-sm lg:text-display-md mb-4">
                 <span className="bg-gradient-to-r from-[var(--primary-40)] via-[var(--primary-50)] to-[var(--primary-30)] bg-clip-text text-transparent">
                   GenArena
                 </span>
@@ -92,7 +83,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              <p className="text-body-md sm:text-body-lg text-white/60 max-w-md leading-relaxed mb-10">
+              <p className="text-body-md sm:text-body-lg text-white/60 max-w-md leading-relaxed mb-8">
                 High-energy AI creation sprints and prompt battles on Discord.
                 Compete with the community, showcase your skills, win credits.
               </p>
@@ -116,8 +107,22 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Challenges */}
-        <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        {/* Events */}
+        <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-10 sm:pb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-heading-xl sm:text-heading-2xl tracking-tight mb-3">
+              Events
+            </h2>
+            <p className="text-body-md text-muted max-w-md mx-auto">
+              Join our Discord, pick an event, and start creating with ImagineArt.
+            </p>
+          </motion.div>
+
           {loading ? (
             <div className="space-y-8">
               <div className="h-[420px] skeleton rounded-2xl" />
@@ -131,7 +136,7 @@ export default function Home() {
           )}
         </section>
 
-        {/* How it works */}
+        {/* How it Works */}
         <section className="border-t border-border-color">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
             <motion.div
@@ -141,7 +146,7 @@ export default function Home() {
               className="text-center mb-12"
             >
               <h2 className="text-heading-lg sm:text-heading-xl tracking-tight mb-3">
-                How It Works
+                How it Works
               </h2>
               <p className="text-body-md text-muted max-w-md mx-auto">
                 Join our Discord, pick an event, and start creating with
@@ -152,45 +157,76 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {[
                 {
-                  step: "01",
                   title: "Join the Event",
                   desc: "Hop into our Discord when the event goes live. Theme is revealed at the start.",
                   icon: Play,
-                  color: "text-[var(--primary-50)]",
+                  bg: "from-[var(--primary-90)] to-[var(--neutral-100)]",
+                  accent: "text-[var(--primary-40)]",
                 },
                 {
-                  step: "02",
                   title: "Create & Submit",
                   desc: "Use ImagineArt workflows to build your entry. Submit your output, prompt, and steps.",
                   icon: Sparkles,
-                  color: "text-[var(--primary-40)]",
+                  bg: "from-[var(--primary-80)] to-[var(--neutral-90)]",
+                  accent: "text-[var(--primary-40)]",
                 },
                 {
-                  step: "03",
                   title: "Win Credits",
                   desc: "Community votes or judges pick winners. Top creators earn free credits.",
-                  icon: Trophy,
-                  color: "text-[var(--warning-50)]",
+                  icon: Download,
+                  bg: "from-[var(--neutral-90)] to-[var(--neutral-100)]",
+                  accent: "text-[var(--warning-50)]",
                 },
               ].map((item, i) => (
                 <motion.div
-                  key={item.step}
+                  key={item.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.15 }}
-                  className="card relative p-6 group hover:border-border-brand transition-colors"
+                  className="card overflow-hidden group hover:border-border-brand transition-colors"
                 >
-                  <span className="text-display-xs font-bold text-border-color absolute top-4 right-5 select-none opacity-60">
-                    {item.step}
-                  </span>
-                  <div className={cn("mb-4", item.color)}>
-                    <item.icon className="w-6 h-6" />
+                  {/* Image / Illustration area */}
+                  <div
+                    className={cn(
+                      "relative h-44 bg-gradient-to-br overflow-hidden",
+                      item.bg
+                    )}
+                  >
+                    {/* Subtle grid pattern overlay */}
+                    <div
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage:
+                          "repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,.15) 28px,rgba(255,255,255,.15) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,.15) 28px,rgba(255,255,255,.15) 29px)",
+                      }}
+                    />
+                    {/* Glow orb */}
+                    <div
+                      className={cn(
+                        "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full blur-2xl opacity-30",
+                        i === 2 ? "bg-[var(--warning-50)]" : "bg-[var(--primary-50)]"
+                      )}
+                    />
+                    {/* Centered icon */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <item.icon
+                        className={cn("w-12 h-12 opacity-60", item.accent)}
+                        strokeWidth={1.5}
+                      />
+                    </div>
                   </div>
-                  <h3 className="text-label-lg mb-2">{item.title}</h3>
-                  <p className="text-body-sm text-muted leading-relaxed">
-                    {item.desc}
-                  </p>
+
+                  {/* Text content */}
+                  <div className="p-5">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-label-lg">{item.title}</h3>
+                      <item.icon className={cn("w-4 h-4 flex-shrink-0", item.accent)} />
+                    </div>
+                    <p className="text-body-sm text-muted leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -212,7 +248,7 @@ function SprintCard({ challenge }: { challenge: Challenge }) {
     { time: "5 min", label: "Theme Reveal", icon: Sparkles },
     { time: "15 min", label: "Live Demo by Haris", icon: Mic },
     { time: "30 min", label: "Creation Sprint", icon: Zap },
-    { time: "10 min", label: "Showcase + Winners", icon: Trophy },
+    { time: "18 min", label: "Showcase + Winners", icon: Trophy },
   ];
 
   return (
@@ -373,7 +409,7 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
                   Active
                 </span>
                 <span className="badge" style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.8)", border: "1px solid rgba(255,255,255,0.1)" }}>
-                  Biweekly Battle
+                  60 Min Sprint
                 </span>
                 <span className="flex items-center gap-1.5 text-white/50 text-body-xs">
                   <Users className="w-3.5 h-3.5" />
@@ -382,13 +418,13 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
               </div>
 
               <h2 className="text-heading-lg sm:text-heading-xl lg:text-heading-2xl text-white tracking-tight mb-2 flex items-center gap-3">
-                <Swords className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary-40)] flex-shrink-0" />
+                <Zap className="w-8 h-8 sm:w-10 sm:h-10 text-[var(--primary-40)] flex-shrink-0" />
                 {challenge.title}
               </h2>
 
               <p className="text-body-sm text-white/60 leading-relaxed max-w-xl mb-4">
-                Fast-paced competitive live session where two randomly selected volunteers
-                compete to recreate the same scene. Community votes to crown the winner.
+                High-energy, theme-based, 1-hour live creation session on Discord.
+                Build with ImagineArt workflows, compete, and win credits.
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
@@ -408,7 +444,7 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
             <div className="flex flex-col lg:flex-row lg:items-start gap-6">
               <div className="flex-1">
                 <p className="text-label-xs uppercase tracking-widest text-muted mb-3">
-                  Battle Flow
+                  Event Format
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {battleSteps.map((step, i) => (
@@ -427,7 +463,7 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
               </div>
 
               <div className="btn btn-expressive btn-lg flex-shrink-0 group-hover:shadow-xl">
-                Enter Battle
+                Join Sprint
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
