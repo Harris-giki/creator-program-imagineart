@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-/* ─── Simple inline SVGs for social icons not in lucide ─── */
+/* ─── Social icon SVGs ─── */
 function IconFacebook() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
@@ -86,7 +86,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border-color bg-background">
+    <footer style={{ background: "#000000" }}>
       {/* Main footer content */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-8">
         <div className="flex flex-col sm:flex-row gap-10 sm:gap-8">
@@ -105,13 +105,16 @@ export function Footer() {
           <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-8">
             {/* Explore */}
             <div>
-              <p className="text-label-sm font-semibold text-foreground mb-4">Explore</p>
+              <p className="text-label-sm font-semibold text-white mb-4">Explore</p>
               <ul className="space-y-2.5">
                 {exploreLinks.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-body-sm text-muted hover:text-foreground transition-colors"
+                      className="text-body-sm transition-colors"
+                      style={{ color: "rgba(255,255,255,0.45)" }}
+                      onMouseOver={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
+                      onMouseOut={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -124,13 +127,16 @@ export function Footer() {
 
             {/* Company */}
             <div>
-              <p className="text-label-sm font-semibold text-foreground mb-4">Company</p>
+              <p className="text-label-sm font-semibold text-white mb-4">Company</p>
               <ul className="space-y-2.5">
                 {companyLinks.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-body-sm text-muted hover:text-foreground transition-colors"
+                      className="text-body-sm transition-colors"
+                      style={{ color: "rgba(255,255,255,0.45)" }}
+                      onMouseOver={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
+                      onMouseOut={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -143,13 +149,16 @@ export function Footer() {
 
             {/* Legal */}
             <div>
-              <p className="text-label-sm font-semibold text-foreground mb-4">Legal</p>
+              <p className="text-label-sm font-semibold text-white mb-4">Legal</p>
               <ul className="space-y-2.5">
                 {legalLinks.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-body-sm text-muted hover:text-foreground transition-colors"
+                      className="text-body-sm transition-colors"
+                      style={{ color: "rgba(255,255,255,0.45)" }}
+                      onMouseOver={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
+                      onMouseOut={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -163,8 +172,11 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-border-secondary flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-body-xs text-tertiary">
+        <div
+          className="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
+        >
+          <span className="text-body-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
             &copy; {new Date().getFullYear()} Vyva Ai. All rights reserved.
           </span>
 
@@ -177,7 +189,10 @@ export function Footer() {
                 aria-label={label}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 flex items-center justify-center rounded-full text-muted hover:text-foreground hover:bg-surface-hover transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-full transition-colors"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+                onMouseOver={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.9)")}
+                onMouseOut={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
               >
                 <Icon />
               </a>
@@ -187,10 +202,15 @@ export function Footer() {
       </div>
 
       {/* Large ImagineArt watermark */}
-      <div className="overflow-hidden select-none pointer-events-none" aria-hidden>
+      <div className="overflow-hidden select-none pointer-events-none pb-2" aria-hidden>
         <p
-          className="text-foreground font-black leading-none tracking-tighter text-center"
-          style={{ fontSize: "clamp(60px, 14vw, 160px)" }}
+          className="leading-none tracking-tighter text-center"
+          style={{
+            fontSize: "clamp(56px, 13.5vw, 168px)",
+            fontWeight: 800,
+            color: "#ffffff",
+            letterSpacing: "-0.03em",
+          }}
         >
           ImagineArt
         </p>

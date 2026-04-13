@@ -106,7 +106,7 @@
 
 /* ─── Dark Theme ─── */
 [data-theme="dark"] {
-  --background: var(--neutral-100);
+  --background: #111111;
   --foreground: var(--neutral-10);
 
   --surface-primary: var(--neutral-90);

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
-import { LayoutDashboard, User } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -45,8 +45,7 @@ export function Navbar() {
           {/* Right Actions */}
           <div className="flex items-center gap-2">
             <NavLink href="/" active={pathname === "/"}>
-              <User className="w-3.5 h-3.5" />
-              Challenges
+              Challenge
             </NavLink>
             {isAdmin && (
               <NavLink href="/admin" active={pathname.startsWith("/admin")}>
