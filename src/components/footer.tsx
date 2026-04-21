@@ -34,53 +34,44 @@ function IconDiscord() {
 function IconReddit() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-      <circle cx="12" cy="12" r="10" />
-      <path fill="var(--background)" d="M17.49 10.5a1.5 1.5 0 0 0-1.5 1.23 7.27 7.27 0 0 0-3.99-1.23l.68-3.16 2.2.46a1.1 1.1 0 1 0 .13-.62l-2.45-.52-.77 3.57a7.27 7.27 0 0 0-3.92 1.23 1.5 1.5 0 1 0-1.73 2.38 2.87 2.87 0 0 0 0 .38c0 1.94 2.24 3.5 5.01 3.5s5.01-1.57 5.01-3.5c0-.13 0-.26-.02-.38A1.5 1.5 0 0 0 17.49 10.5z" />
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12c-.69 0-1.25.56-1.25 1.25 0 .687.56 1.248 1.25 1.248.687 0 1.248-.56 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.56 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.095.33.33 0 0 0 0 .463c.842.842 2.484.912 2.961.912.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.198-2.512-.73a.326.326 0 0 0-.232-.095z" />
     </svg>
   );
 }
-function IconTikTok() {
+function IconLinkedIn() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.06a8.22 8.22 0 0 0 4.81 1.54V7.15a4.85 4.85 0 0 1-1.04-.46z" />
+      <path d="M20.452 20.452h-3.554v-5.569c0-1.328-.026-3.037-1.852-3.037-1.854 0-2.137 1.446-2.137 2.94v5.666H9.355V9h3.414v1.561h.046c.477-.9 1.637-1.852 3.37-1.852 3.602 0 4.268 2.37 4.268 5.455v6.288zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.554V9H7.12v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.98 0 1.778-.773 1.778-1.729V1.729C24 .774 23.205 0 22.222 0h.003z" />
     </svg>
   );
 }
 
-const exploreLinks = [
-  { label: "Image AI", href: "https://imagine.art/image" },
-  { label: "Video AI", href: "https://imagine.art/video" },
-  { label: "Music AI", href: "https://imagine.art/music" },
-  { label: "Voice AI", href: "https://imagine.art/voice" },
-  { label: "Teams", href: "https://imagine.art/teams" },
-  { label: "See all features", href: "https://imagine.art" },
+const toolsLinks = [
+  { label: "AI Image", href: "https://www.imagine.art/image-studio" },
+  { label: "AI Video", href: "https://www.imagine.art/video-studio" },
+  { label: "AI Music", href: "https://www.imagine.art/music-studio" },
+  { label: "AI Voice", href: "https://www.imagine.art/voice-studio" },
+  { label: "See all features", href: "https://www.imagine.art" },
 ];
 
-const companyLinks = [
-  { label: "About Us", href: "https://imagine.art/about" },
-  { label: "Trust Center", href: "https://imagine.art/trust" },
-  { label: "Blogs", href: "https://imagine.art/blog" },
-  { label: "Media Kit", href: "https://imagine.art/media-kit" },
-  { label: "Careers", href: "https://imagine.art/careers" },
-  { label: "Contact Sales", href: "mailto:sales@imagine.art" },
+const resourcesLinks = [
+  { label: "Help Center", href: "https://help.imagine.art/" },
+  { label: "Blogs", href: "https://www.imagine.art/blogs" },
+  { label: "Careers", href: "https://jobs.ashbyhq.com/imagineart" },
 ];
 
 const legalLinks = [
-  { label: "Privacy Policy", href: "https://imagine.art/privacy" },
-  { label: "Terms of Service", href: "https://imagine.art/terms" },
-  { label: "Security", href: "https://imagine.art/security" },
-  { label: "Licensing", href: "https://imagine.art/licensing" },
-  { label: "Ethics Guidelines", href: "https://imagine.art/ethics" },
-  { label: "Content Policy", href: "https://imagine.art/content-policy" },
+  { label: "Privacy Policy", href: "https://www.imagine.art/privacy-policy" },
+  { label: "Terms of Service", href: "https://www.imagine.art/terms-and-conditions" },
 ];
 
 const socialLinks = [
-  { icon: IconFacebook, href: "https://facebook.com/imagineart", label: "Facebook" },
-  { icon: IconInstagram, href: "https://instagram.com/imagineart", label: "Instagram" },
-  { icon: IconX, href: "https://x.com/imagineart", label: "X" },
-  { icon: IconReddit, href: "https://reddit.com/r/imagineart", label: "Reddit" },
-  { icon: IconTikTok, href: "https://tiktok.com/@imagineart", label: "TikTok" },
-  { icon: IconDiscord, href: "https://discord.gg/imagineart", label: "Discord" },
+  { icon: IconFacebook, href: "https://www.facebook.com/groups/imagineai", label: "Facebook" },
+  { icon: IconInstagram, href: "https://www.instagram.com/imagineartofficial/", label: "Instagram" },
+  { icon: IconX, href: "https://x.com/ImagineArt_X", label: "X" },
+  { icon: IconLinkedIn, href: "https://www.linkedin.com/company/imagineartai/", label: "LinkedIn" },
+  { icon: IconReddit, href: "https://www.reddit.com/r/ImagineAiArt/", label: "Reddit" },
+  { icon: IconDiscord, href: "https://discord.gg/p6ZXQnAM", label: "Discord" },
 ];
 
 export function Footer() {
@@ -102,17 +93,26 @@ export function Footer() {
 
           {/* Link columns pushed to the right */}
           <div className="sm:ml-auto grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-16">
-            <FooterColumn title="Explore" links={exploreLinks} />
-            <FooterColumn title="Company" links={companyLinks} />
+            <FooterColumn title="Tools" links={toolsLinks} />
+            <FooterColumn title="Resources" links={resourcesLinks} />
             <FooterColumn title="Legal" links={legalLinks} />
           </div>
         </div>
 
         {/* Bottom bar */}
         <div className="mt-14 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border-color">
-          <span className="text-body-xs text-tertiary">
-            &copy; {new Date().getFullYear()} Vyva Ai. All rights reserved.
-          </span>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-body-xs text-tertiary">
+            <span>&copy; 2026 Vyro Turkey. All rights reserved.</span>
+            <span className="hidden sm:inline text-border-color" aria-hidden>
+              •
+            </span>
+            <button
+              type="button"
+              className="hover:text-foreground transition-colors"
+            >
+              Manage Cookie Preferences
+            </button>
+          </div>
 
           <div className="flex items-center gap-3">
             {socialLinks.map(({ icon: Icon, href, label }) => (

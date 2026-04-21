@@ -81,7 +81,7 @@ export function Navbar() {
             )}
 
             <a
-              href="https://discord.gg/imagineart"
+              href="https://discord.gg/p6ZXQnAM"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-tonel btn-md"
