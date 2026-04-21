@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -20,9 +19,9 @@ export const metadata: Metadata = {
   description:
     "Compete in weekly creative challenges, showcase your AI art, and win prizes.",
   icons: {
-    icon: "/uploads/Logomarks.png",
-    shortcut: "/uploads/Logomarks.png",
-    apple: "/uploads/Logomarks.png",
+    icon: "/Group.png",
+    shortcut: "/Group.png",
+    apple: "/Group.png",
   },
 };
 
@@ -32,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="dark">
       <body className={`${dmSans.variable} ${dmMono.variable} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
       </body>
     </html>
   );

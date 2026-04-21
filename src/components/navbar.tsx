@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Menu } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "./theme-toggle";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -32,23 +31,34 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
-          {/* Brand — GenArena wordmark */}
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+          {/* Brand — ImagineArt Creator Program */}
+          <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
             <Image
               src="/uploads/Logomarks.png"
-              alt="GenArena"
-              width={32}
-              height={32}
-              className="w-8 h-8 object-contain"
+              alt="ImagineArt"
+              width={36}
+              height={36}
+              className="w-9 h-9 object-contain"
             />
-            <span
-              className={cn(
-                "hidden sm:block text-label-lg font-semibold tracking-tight",
-                isHome ? "text-white" : "text-foreground"
-              )}
-            >
-              GenArena
-            </span>
+            <div className="hidden sm:block leading-tight">
+              <span
+                className={cn(
+                  "block text-label-lg font-semibold tracking-tight",
+                  isHome ? "text-white" : "text-foreground"
+                )}
+              >
+                Imagine
+                <span className="text-[var(--primary-40)]">Art</span>
+              </span>
+              <span
+                className={cn(
+                  "block text-label-xs",
+                  isHome ? "text-white/60" : "text-muted"
+                )}
+              >
+                Creator Program
+              </span>
+            </div>
           </Link>
 
           {/* Right actions — primary CTA + icon */}
@@ -78,19 +88,6 @@ export function Navbar() {
             >
               Join Discord
             </a>
-
-            <button
-              type="button"
-              aria-label="Menu"
-              className={cn(
-                "btn-icon-outline",
-                isHome && "border-white/15 text-white/70 hover:bg-white/5 hover:text-white hover:border-white/20"
-              )}
-            >
-              <Menu className="w-4 h-4" />
-            </button>
-
-            <ThemeToggle />
           </div>
         </div>
       </div>

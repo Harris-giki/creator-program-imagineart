@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyAdmin } from "@/lib/auth";
+import { getFallbackChallenge } from "@/lib/fallback-data";
 
 export async function GET(
   _req: NextRequest,
@@ -8,18 +9,32 @@ export async function GET(
 ) {
   const { id } = await params;
 
-  const challenge = await prisma.challenge.findUnique({
-    where: { id },
-    include: {
-      _count: { select: { submissions: true } },
-    },
-  });
+  try {
+    const challenge = await prisma.challenge.findUnique({
+      where: { id },
+      include: {
+        _count: { select: { submissions: true } },
+      },
+    });
 
-  if (!challenge) {
+    if (!challenge) {
+      const fallback = getFallbackChallenge(id);
+      if (fallback) return NextResponse.json(fallback);
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(challenge);
+  } catch (err) {
+    const fallback = getFallbackChallenge(id);
+    if (fallback) {
+      console.warn(
+        "[api/challenges/:id GET] DB unavailable, serving fallback data:",
+        err instanceof Error ? err.message : err
+      );
+      return NextResponse.json(fallback);
+    }
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-
-  return NextResponse.json(challenge);
 }
 
 export async function PUT(

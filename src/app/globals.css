@@ -71,40 +71,8 @@
   --warning-90: #302400;
 }
 
-/* ─── Light Theme (default) ─── */
-:root {
-  --background: var(--neutral-white);
-  --foreground: var(--neutral-100);
-
-  --surface-primary: var(--neutral-10);
-  --surface-secondary: var(--neutral-20);
-  --surface-elevated: var(--neutral-white);
-  --surface-brand: var(--primary-10);
-  --surface-critical: var(--error-10);
-  --surface-success: var(--success-10);
-  --surface-warning: var(--warning-10);
-
-  --fill-brand: var(--primary-60);
-  --fill-brand-hover: var(--primary-70);
-  --fill-critical: var(--error-50);
-  --fill-success: var(--success-50);
-  --fill-warning: var(--warning-50);
-
-  --content-primary: var(--neutral-100);
-  --content-secondary: var(--neutral-60);
-  --content-tertiary: var(--neutral-50);
-  --content-brand: var(--primary-60);
-  --content-error: var(--error-60);
-  --content-success: var(--success-60);
-
-  --border-primary: var(--neutral-30);
-  --border-secondary: var(--neutral-20);
-  --border-brand: var(--primary-60);
-  --border-focus: var(--primary-60);
-  --border-error: var(--error-50);
-}
-
-/* ─── Dark Theme — GenArena tokens from Figma ─── */
+/* ─── Dark Theme (only) — GenArena tokens from Figma ─── */
+:root,
 [data-theme="dark"] {
   --background: #0F0F0F;
   --foreground: var(--neutral-10);
@@ -135,6 +103,8 @@
   --border-brand: var(--primary-60);
   --border-focus: var(--primary-50);
   --border-error: var(--error-50);
+
+  color-scheme: dark;
 }
 
 /* ─── GenArena Brand Surface Tokens (from Figma frame 21371:117976) ─── */
@@ -151,6 +121,10 @@
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--border-primary) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -349,10 +323,6 @@ body {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-}
-[data-theme="light"] .glass {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* ─── GenArena ─── */

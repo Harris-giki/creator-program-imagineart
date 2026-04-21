@@ -88,23 +88,20 @@ export function Footer() {
     <footer className="bg-background border-t border-border-color">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16 pt-14 pb-8">
         {/* Top content */}
-        <div className="flex flex-col sm:flex-row gap-10 sm:gap-16">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-10 sm:gap-16">
           {/* Brand */}
-          <div className="flex-shrink-0 flex items-start gap-3">
+          <div className="flex-shrink-0">
             <Image
-              src="/uploads/Logomarks.png"
-              alt="GenArena"
-              width={32}
-              height={32}
-              className="w-8 h-8 object-contain"
+              src="/vector.png"
+              alt="ImagineArt"
+              width={36}
+              height={36}
+              className="w-9 h-9 object-contain"
             />
-            <span className="text-label-lg font-semibold tracking-tight text-foreground">
-              GenArena
-            </span>
           </div>
 
-          {/* Link columns */}
-          <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          {/* Link columns pushed to the right */}
+          <div className="sm:ml-auto grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-16">
             <FooterColumn title="Explore" links={exploreLinks} />
             <FooterColumn title="Company" links={companyLinks} />
             <FooterColumn title="Legal" links={legalLinks} />
@@ -134,16 +131,16 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Large GenArena watermark */}
+      {/* Large ImagineArt watermark */}
       <div className="overflow-hidden select-none pointer-events-none pb-4" aria-hidden>
         <p
-          className="leading-none text-center font-medium text-genarena"
+          className="leading-none text-center font-bold text-white"
           style={{
             fontSize: "clamp(56px, 16vw, 220px)",
-            letterSpacing: "-0.03em",
+            letterSpacing: "-0.04em",
           }}
         >
-          GenArena
+          ImagineArt
         </p>
       </div>
     </footer>

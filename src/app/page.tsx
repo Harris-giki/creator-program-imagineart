@@ -65,7 +65,10 @@ export default function Home() {
         <Hero />
 
         {/* ── FEATURED EVENTS ── */}
-        <section className="pattern-bg border-t border-border-color">
+        <section
+          id="events"
+          className="pattern-bg border-t border-border-color scroll-mt-20"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -86,60 +89,16 @@ export default function Home() {
             </motion.div>
 
             {loading ? (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="h-[360px] skeleton rounded-[26px]" />
-                <div className="h-[360px] skeleton rounded-[26px]" />
+              <div className="flex flex-col gap-6">
+                <div className="h-[420px] skeleton rounded-[26px]" />
+                <div className="h-[420px] skeleton rounded-[26px]" />
               </div>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-6">
                 {sprint && <SprintCard challenge={sprint} />}
                 {battle && <BattleCard challenge={battle} />}
               </div>
             )}
-          </div>
-        </section>
-
-        {/* ── SCREENSHOT SHOWCASE ── */}
-        <section className="pattern-bg border-t border-border-color">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-10"
-            >
-              <h2 className="text-heading-xl sm:text-heading-2xl font-bold tracking-tight mb-2">
-                Built for creators who ship.
-              </h2>
-              <p className="text-body-md text-muted max-w-md mx-auto">
-                See what the community is creating inside live sprints &amp;
-                prompt battles.
-              </p>
-            </motion.div>
-
-            <div className="space-y-4">
-              {[0, 1].map((i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}
-                  className="relative rounded-2xl overflow-hidden border border-border-color"
-                >
-                  <div className="aspect-[1359/554] relative">
-                    <Image
-                      src="/uploads/genarena-screenshot.jpg"
-                      alt="GenArena preview"
-                      fill
-                      sizes="(max-width: 1280px) 100vw, 1280px"
-                      className="object-cover"
-                      priority={i === 0}
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -316,20 +275,8 @@ function Hero() {
 
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-3 mt-8">
-            <a
-              href="https://discord.gg/imagineart"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-tonel btn-lg"
-            >
+            <Link href="#events" className="btn btn-tonel btn-lg">
               Join the next event
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <Link
-              href="#events"
-              className="btn btn-lg rounded-full border border-white/15 text-white hover:bg-white/5 transition-colors"
-            >
-              See live challenges
             </Link>
           </div>
         </motion.div>
@@ -358,85 +305,34 @@ function SprintCard({ challenge }: { challenge: Challenge }) {
       transition={{ duration: 0.6 }}
     >
       <Link href={`/challenges/${challenge.id}`} className="group block">
-        <div className="project-card">
-          {/* Media */}
-          <div className="relative aspect-[16/9] overflow-hidden">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
+        <WideChallengeCard
+          videoSrc="/uploads/sprint.mp4"
+          typePill={
+            <>
+              <Zap className="w-3 h-3" /> 60 Min Sprint
+            </>
+          }
+          status={challenge.status}
+          joinedCount={challenge._count?.submissions ?? 0}
+          title={challenge.title}
+          description={
+            challenge.description ||
+            "High-energy, theme-based 60-minute live creation session on Discord. Build with ImagineArt workflows, compete, and win credits."
+          }
+          prize={challenge.prize}
+          deadline={challenge.deadline}
+          formatChips={steps.map((s, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-primary border border-border-color text-body-xs"
             >
-              <source src="/uploads/sprint.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-            <div className="absolute top-4 left-4 flex items-center gap-2">
-              <span className="pill-brand" style={{ padding: "4px 10px" }}>
-                <Zap className="w-3 h-3" /> Live Sprint
-              </span>
-              {challenge.status === "active" && (
-                <span className="badge badge-success text-label-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--success-50)] animate-pulse" />
-                  Active
-                </span>
-              )}
+              <s.icon className="w-3 h-3 text-muted" />
+              <span className="font-semibold text-foreground">{s.time}</span>
+              <span className="text-muted">{s.label}</span>
             </div>
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <h3
-                  className="text-white font-semibold truncate"
-                  style={{ fontSize: "clamp(20px, 2vw, 26px)", lineHeight: 1.2 }}
-                >
-                  {challenge.title}
-                </h3>
-                <div className="flex items-center gap-3 mt-1.5 text-body-xs text-white/60">
-                  {challenge.prize && (
-                    <span className="flex items-center gap-1 text-[var(--warning-50)] font-medium">
-                      <Trophy className="w-3.5 h-3.5" /> {challenge.prize}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    <CountdownTimer deadline={challenge.deadline} compact />
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Users className="w-3.5 h-3.5" />
-                    {challenge._count?.submissions ?? 0}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Body */}
-          <div className="p-6">
-            <p className="text-body-sm text-muted leading-relaxed mb-5 line-clamp-2">
-              {challenge.description ||
-                "High-energy, theme-based 60-minute live creation session on Discord. Build with ImagineArt workflows, compete, and win credits."}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              {steps.map((s, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-primary border border-border-color text-body-xs"
-                >
-                  <s.icon className="w-3 h-3 text-muted" />
-                  <span className="font-semibold text-foreground">
-                    {s.time}
-                  </span>
-                  <span className="text-muted">{s.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="btn btn-tonel btn-md w-full group-hover:brightness-110 transition-all">
-              Join Sprint
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </div>
-          </div>
-        </div>
+          ))}
+          ctaLabel="Join Sprint"
+        />
       </Link>
     </motion.div>
   );
@@ -464,86 +360,148 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
       transition={{ duration: 0.6, delay: 0.1 }}
     >
       <Link href={`/challenges/${challenge.id}`} className="group block">
-        <div className="project-card">
-          {/* Media */}
-          <div className="relative aspect-[16/9] overflow-hidden">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
+        <WideChallengeCard
+          videoSrc="/uploads/prompt-battles.mp4"
+          typePill={
+            <>
+              <Swords className="w-3 h-3" /> Prompt Battle
+            </>
+          }
+          status={challenge.status}
+          joinedCount={challenge._count?.submissions ?? 0}
+          title={challenge.title}
+          description={
+            challenge.description ||
+            "1v1 prompt battles on Discord. Two creators race to recreate a reference scene — the community picks the winner."
+          }
+          prize={challenge.prize}
+          deadline={challenge.deadline}
+          formatChips={steps.map((s, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-primary border border-border-color text-body-xs"
             >
-              <source src="/uploads/prompt-battles.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-            <div className="absolute top-4 left-4 flex items-center gap-2">
-              <span className="pill-brand" style={{ padding: "4px 10px" }}>
-                <Swords className="w-3 h-3" /> Prompt Battle
+              <span className="font-mono font-bold text-tertiary">
+                {String(i + 1).padStart(2, "0")}
               </span>
-              {challenge.status === "active" && (
-                <span className="badge badge-success text-label-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--success-50)] animate-pulse" />
-                  Active
-                </span>
-              )}
+              <s.icon className="w-3 h-3 text-muted flex-shrink-0" />
+              <span className="text-muted truncate">{s.label}</span>
             </div>
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <h3
-                  className="text-white font-semibold truncate"
-                  style={{ fontSize: "clamp(20px, 2vw, 26px)", lineHeight: 1.2 }}
-                >
-                  {challenge.title}
-                </h3>
-                <div className="flex items-center gap-3 mt-1.5 text-body-xs text-white/60">
-                  {challenge.prize && (
-                    <span className="flex items-center gap-1 text-[var(--warning-50)] font-medium">
-                      <Trophy className="w-3.5 h-3.5" /> {challenge.prize}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    <CountdownTimer deadline={challenge.deadline} compact />
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Users className="w-3.5 h-3.5" />
-                    {challenge._count?.submissions ?? 0}
-                  </span>
-                </div>
-              </div>
-            </div>
+          ))}
+          ctaLabel="Join Battle"
+        />
+      </Link>
+    </motion.div>
+  );
+}
+
+/* ───────────────── WIDE CHALLENGE CARD (shared) ───────────────── */
+function WideChallengeCard({
+  videoSrc,
+  typePill,
+  status,
+  joinedCount,
+  title,
+  description,
+  prize,
+  deadline,
+  formatChips,
+  ctaLabel,
+}: {
+  videoSrc: string;
+  typePill: React.ReactNode;
+  status: string;
+  joinedCount: number;
+  title: string;
+  description: string;
+  prize: string;
+  deadline: string;
+  formatChips: React.ReactNode;
+  ctaLabel: string;
+}) {
+  const isActive = status === "active";
+  const isEnded = status === "ended";
+
+  return (
+    <div className="project-card overflow-hidden">
+      {/* Media + overlaid content */}
+      <div className="relative min-h-[260px] sm:min-h-[320px]">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+        {/* Left-to-right darkening so text stays readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+        <div className="relative z-10 p-6 sm:p-8 flex flex-col h-full min-h-[260px] sm:min-h-[320px]">
+          {/* Top pills row */}
+          <div className="flex flex-wrap items-center gap-2">
+            {isActive && (
+              <span className="badge badge-success text-label-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--success-50)] animate-pulse" />
+                Active
+              </span>
+            )}
+            <span className="pill-brand" style={{ padding: "4px 10px" }}>
+              {typePill}
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-body-xs text-white/70 border border-white/15 bg-white/5">
+              <Users className="w-3 h-3" />
+              {joinedCount} joined
+            </span>
           </div>
 
-          {/* Body */}
-          <div className="p-6">
-            <p className="text-body-sm text-muted leading-relaxed mb-5 line-clamp-2">
-              {challenge.description ||
-                "1v1 prompt battles on Discord. Two creators race to recreate a reference scene — the community picks the winner."}
+          {/* Title + description + meta pushed to bottom of media area */}
+          <div className="mt-auto max-w-2xl">
+            <h3
+              className="text-white font-semibold tracking-tight mb-2"
+              style={{ fontSize: "clamp(24px, 2.6vw, 34px)", lineHeight: 1.15 }}
+            >
+              {title}
+            </h3>
+            <p className="text-body-sm text-white/75 leading-relaxed line-clamp-2 mb-3">
+              {description}
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
-              {steps.map((s, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-primary border border-border-color text-body-xs"
-                >
-                  <span className="font-mono font-bold text-tertiary">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <s.icon className="w-3 h-3 text-muted flex-shrink-0" />
-                  <span className="text-muted truncate">{s.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="btn btn-tonel btn-md w-full group-hover:brightness-110 transition-all">
-              Join Battle
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-body-xs">
+              {prize && (
+                <span className="flex items-center gap-1.5 text-[var(--warning-50)] font-semibold">
+                  <Trophy className="w-3.5 h-3.5" /> {prize}
+                </span>
+              )}
+              <span className="flex items-center gap-1.5 text-white/70">
+                <Clock className="w-3.5 h-3.5" />
+                {isEnded ? (
+                  "Ended"
+                ) : (
+                  <CountdownTimer deadline={deadline} compact />
+                )}
+              </span>
             </div>
           </div>
         </div>
-      </Link>
-    </motion.div>
+      </div>
+
+      {/* Bottom strip — event format chips + CTA */}
+      <div className="border-t border-border-color bg-surface-elevated p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center gap-4">
+        <div className="flex-1 min-w-0">
+          <span className="text-label-xs uppercase tracking-widest text-muted block mb-2">
+            Event Format
+          </span>
+          <div className="flex flex-wrap gap-2">{formatChips}</div>
+        </div>
+
+        <div className="btn btn-tonel btn-md w-full lg:w-auto lg:self-center group-hover:brightness-110 transition-all flex-shrink-0">
+          {ctaLabel}
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+        </div>
+      </div>
+    </div>
   );
 }

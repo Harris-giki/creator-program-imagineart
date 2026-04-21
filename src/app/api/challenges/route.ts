@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyAdmin } from "@/lib/auth";
+import { listFallbackChallenges } from "@/lib/fallback-data";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -8,13 +9,20 @@ export async function GET(req: NextRequest) {
 
   const where = status ? { status } : {};
 
-  const challenges = await prisma.challenge.findMany({
-    where,
-    include: { _count: { select: { submissions: true } } },
-    orderBy: { createdAt: "desc" },
-  });
-
-  return NextResponse.json(challenges);
+  try {
+    const challenges = await prisma.challenge.findMany({
+      where,
+      include: { _count: { select: { submissions: true } } },
+      orderBy: { createdAt: "desc" },
+    });
+    return NextResponse.json(challenges);
+  } catch (err) {
+    console.warn(
+      "[api/challenges GET] DB unavailable, serving fallback data:",
+      err instanceof Error ? err.message : err
+    );
+    return NextResponse.json(listFallbackChallenges(status));
+  }
 }
 
 export async function POST(req: NextRequest) {
