@@ -32,68 +32,50 @@ export function ChallengeCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
     >
       <Link href={`/challenges/${challenge.id}`} className="group block">
-        <div
-          className={cn(
-            "card relative overflow-hidden",
-            "hover:bg-surface-hover",
-            "transition-all duration-300",
-            "hover:border-border-brand hover:shadow-lg hover:shadow-primary/5"
-          )}
-        >
-          {challenge.bannerUrl && (
-            <div className="relative h-48 overflow-hidden">
+        <div className="project-card">
+          {/* Media */}
+          <div className="relative aspect-[16/10] overflow-hidden bg-surface-primary">
+            {challenge.bannerUrl ? (
               <Image
                 src={challenge.bannerUrl}
                 alt={challenge.title}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute top-3 left-3">
-                <span
-                  className={cn(
-                    "uppercase tracking-wider",
-                    getStatusBadgeClasses(challenge.status)
-                  )}
-                >
-                  {challenge.status}
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-90)] via-surface-primary to-surface-elevated flex items-center justify-center">
+                <Trophy className="w-10 h-10 text-tertiary" strokeWidth={1.25} />
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+            <div className="absolute top-3 left-3">
+              <span
+                className={cn(
+                  "uppercase tracking-wider",
+                  getStatusBadgeClasses(challenge.status)
+                )}
+              >
+                {challenge.status}
+              </span>
+            </div>
+
+            {challenge.prize && (
+              <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
+                <Trophy className="w-4 h-4 text-[var(--warning-50)]" />
+                <span className="text-body-sm font-semibold text-white">
+                  {challenge.prize}
                 </span>
               </div>
-              {challenge.prize && (
-                <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                  <Trophy className="w-4 h-4 text-[var(--warning-50)]" />
-                  <span className="text-body-sm font-bold text-white">
-                    {challenge.prize}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
+            )}
+          </div>
 
-          {!challenge.bannerUrl && (
-            <div className="relative h-48 bg-surface-brand border-b border-border-secondary flex items-center justify-center">
-              <div className="absolute inset-0 opacity-40">
-                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,color-mix(in_srgb,var(--primary-60)_12%,transparent)_50%,transparent_75%)] bg-[length:20px_20px]" />
-              </div>
-              <Trophy className="w-12 h-12 text-tertiary relative z-[1]" />
-              <div className="absolute top-3 left-3 z-[1]">
-                <span
-                  className={cn(
-                    "uppercase tracking-wider",
-                    getStatusBadgeClasses(challenge.status)
-                  )}
-                >
-                  {challenge.status}
-                </span>
-              </div>
-            </div>
-          )}
-
+          {/* Body */}
           <div className="p-5">
-            <h3 className="text-heading-xs mb-2 group-hover:text-brand-text transition-colors line-clamp-1">
+            <h3 className="text-heading-xs font-semibold mb-2 text-foreground group-hover:text-brand-text transition-colors line-clamp-1">
               {challenge.title}
             </h3>
             <p className="text-body-sm text-muted line-clamp-2 mb-4 leading-relaxed">
@@ -104,7 +86,7 @@ export function ChallengeCard({
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5" />
-                  {challenge._count?.submissions ?? 0} entries
+                  {challenge._count?.submissions ?? 0}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" />
@@ -115,7 +97,7 @@ export function ChallengeCard({
                   )}
                 </span>
               </div>
-              <ArrowRight className="w-4 h-4 text-brand-text opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0 transition-transform duration-300" />
+              <ArrowRight className="w-4 h-4 text-brand-text opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
             </div>
           </div>
         </div>

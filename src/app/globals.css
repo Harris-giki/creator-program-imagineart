@@ -104,14 +104,14 @@
   --border-error: var(--error-50);
 }
 
-/* ─── Dark Theme ─── */
+/* ─── Dark Theme — GenArena tokens from Figma ─── */
 [data-theme="dark"] {
-  --background: #111111;
+  --background: #0F0F0F;
   --foreground: var(--neutral-10);
 
-  --surface-primary: var(--neutral-90);
-  --surface-secondary: var(--neutral-80);
-  --surface-elevated: var(--neutral-80);
+  --surface-primary: #171717;
+  --surface-secondary: #1A1A1A;
+  --surface-elevated: #171717;
   --surface-brand: var(--primary-90);
   --surface-critical: var(--error-90);
   --surface-success: var(--success-90);
@@ -124,17 +124,27 @@
   --fill-warning: var(--warning-50);
 
   --content-primary: var(--neutral-10);
-  --content-secondary: var(--neutral-40);
+  --content-secondary: #D9D9D9;
   --content-tertiary: var(--neutral-50);
   --content-brand: var(--primary-40);
   --content-error: #ff8389;
   --content-success: #6fdc8c;
 
-  --border-primary: var(--neutral-70);
-  --border-secondary: var(--neutral-80);
+  --border-primary: #212121;
+  --border-secondary: #292929;
   --border-brand: var(--primary-60);
   --border-focus: var(--primary-50);
   --border-error: var(--error-50);
+}
+
+/* ─── GenArena Brand Surface Tokens (from Figma frame 21371:117976) ─── */
+:root {
+  /* Hero gradient — linear 90deg, #AE80F1 → white */
+  --genarena-logo-gradient: linear-gradient(90deg, #AE80F1 0%, #FFFFFF 100%);
+  /* Brand badge fill — solid #8A3FFC */
+  --genarena-badge-fill: #8A3FFC;
+  /* Pattern background image (tiled) */
+  --genarena-pattern: url('/uploads/genarena-pattern.png');
 }
 
 /* ─── Base ─── */
@@ -343,4 +353,98 @@ body {
 [data-theme="light"] .glass {
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ─── GenArena ─── */
+
+/* Massive purple-to-white logo text gradient */
+.text-genarena {
+  background: var(--genarena-logo-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Purple brand pill (Weekly Events / Free Credits / Community Driven) */
+.pill-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--genarena-badge-fill);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px -8px rgba(138, 63, 252, 0.55);
+}
+
+/* Project card — tiled pattern backdrop section */
+.pattern-bg {
+  background-image: var(--genarena-pattern);
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+/* Project card surface — matches Figma Project-cards frame */
+.project-card {
+  background: var(--surface-elevated);
+  border: 1.65px solid var(--border-primary);
+  border-radius: 26px;
+  overflow: hidden;
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+}
+.project-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary-60) 40%, var(--border-primary));
+  box-shadow: 0 22px 40px -24px rgba(138, 63, 252, 0.35);
+}
+
+/* GenArena primary tonel button (Figma: brand tonel) */
+.btn-tonel {
+  background: var(--primary-60);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 10px 24px -12px rgba(138, 63, 252, 0.6);
+  transition: background 200ms ease, transform 200ms ease;
+}
+.btn-tonel:hover {
+  background: var(--primary-50);
+  transform: translateY(-1px);
+}
+
+/* Icon outline button (Figma: Icon Btn Outline) */
+.btn-icon-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border-primary);
+  color: var(--content-secondary);
+  background: transparent;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+.btn-icon-outline:hover {
+  background: var(--surface-primary);
+  color: var(--content-primary);
+  border-color: var(--border-secondary);
+}
+
+/* Vignette gradient overlay for hero */
+.hero-vignette-left {
+  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 71%);
+}
+.hero-vignette-bottom {
+  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 94%);
 }
