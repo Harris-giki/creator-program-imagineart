@@ -39,8 +39,7 @@ const FALLBACK_CHALLENGES: FallbackChallenge[] = [
   {
     id: "sprint-genarena",
     title: "GenArena Sprint Battle",
-    description:
-      "GenArena is a high-energy, theme-based, 1-hour live creation session hosted on Discord where community members build using ImagineArt's video and image generation workflows.\n\nFormat (60 Minutes):\n• 5 min: Theme reveal + rules\n• 15 min: Live demo (mentor-led workflow walkthrough by Haris)\n• 30 min: Community creation sprint\n• 10 min: Showcase + winner announcement\n\nParticipants submit: Final output, Prompt used, Workflow steps (optional)\n\nIncentive: Top 3 creators receive 10,000 free credits each.",
+    description: "",
     theme: "Live Sprint",
     bannerUrl: "",
     deadline: new Date(seedTime.getTime() + 7 * 24 * 60 * 60 * 1000),
@@ -52,8 +51,7 @@ const FALLBACK_CHALLENGES: FallbackChallenge[] = [
   {
     id: "battle-genarena",
     title: "GenArena Prompt Battles",
-    description:
-      "A fast-paced, competitive live session where two randomly selected community volunteers compete to recreate the same pre-made scene using ImagineArt workflows.\n\nFormat (20-30 Minutes): Volunteers opt in, two selected, reference scene revealed, 20 min to recreate, community votes, winner announced.\n\nReward: Winner receives 10,000 free credits.",
+    description: "",
     theme: "Prompt Battle",
     bannerUrl: "",
     deadline: new Date(seedTime.getTime() + 14 * 24 * 60 * 60 * 1000),

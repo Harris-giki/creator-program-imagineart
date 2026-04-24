@@ -6,23 +6,8 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { CountdownTimer } from "@/components/countdown-timer";
 import { ChallengeCard } from "@/components/challenge-card";
-import {
-  Timer,
-  Gift,
-  Users,
-  Trophy,
-  Clock,
-  Zap,
-  Swords,
-  ArrowRight,
-  Play,
-  Sparkles,
-  Mic,
-  Vote,
-  Eye,
-} from "lucide-react";
+import { Trophy, ArrowRight, Play, Sparkles } from "lucide-react";
 
 interface Challenge {
   id: string;
@@ -83,18 +68,18 @@ export default function Home() {
                 This week&apos;s arena
               </h2>
               <p className="text-body-md text-muted max-w-md">
-                Two formats. One community. Jump into Discord, pick an event,
-                and start creating with ImagineArt.
+                Two formats. One home for every ImagineArt creator. Pick a sprint or
+                battle and ship work from your own workflow—free to join.
               </p>
             </motion.div>
 
             {loading ? (
-              <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="h-[420px] skeleton rounded-[26px]" />
                 <div className="h-[420px] skeleton rounded-[26px]" />
               </div>
             ) : (
-              <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {sprint && <SprintCard challenge={sprint} />}
                 {battle && <BattleCard challenge={battle} />}
               </div>
@@ -127,7 +112,7 @@ export default function Home() {
                 {
                   step: "01",
                   title: "Join the arena",
-                  desc: "Hop into our Discord when an event goes live. Themes are revealed at the start — no prep, pure creative reflex.",
+                  desc: "When the sprint or battle window opens, join from wherever you create with ImagineArt. The theme drops at the start—no prep, pure creative reflex.",
                   icon: Play,
                 },
                 {
@@ -139,7 +124,7 @@ export default function Home() {
                 {
                   step: "03",
                   title: "Win credits",
-                  desc: "Community votes or judges pick winners. Top creators walk away with free credits, loud shoutouts, and leaderboard glory.",
+                  desc: "Judges score entries on quality, creativity, realism, and LinkedIn visibility. Winners are announced the Sunday after; top creators earn credits and shoutouts.",
                   icon: Trophy,
                 },
               ].map((item, i) => (
@@ -188,7 +173,7 @@ export default function Home() {
                   More challenges
                 </h2>
                 <p className="text-body-md text-muted">
-                  Past and upcoming events from the GenArena community.
+                  Past and upcoming events for ImagineArt creators.
                 </p>
               </motion.div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -251,32 +236,18 @@ function Hero() {
             Create. Battle. Win.
           </p>
 
-          {/* Description */}
           <p
-            className="text-white/85 max-w-xl"
+            className="text-white/85 max-w-xl mt-2"
             style={{ fontSize: "clamp(16px, 1.4vw, 22px)", lineHeight: 1.45 }}
           >
-            High-energy AI creation sprints and prompt battles on Discord.
-            Compete with the community, showcase your skills, win credits.
+            Explore a wide range of creative challenges on ImagineArt. Submit your best
+            work, discover new styles, and compete with creators worldwide. Win exciting
+            prizes and earn recognition for your creativity.
           </p>
 
-          {/* Purple brand pills */}
-          <div className="flex flex-wrap items-center gap-2 mt-7">
-            <span className="pill-brand">
-              <Timer className="w-3.5 h-3.5" /> Weekly Events
-            </span>
-            <span className="pill-brand">
-              <Gift className="w-3.5 h-3.5" /> Free Credits
-            </span>
-            <span className="pill-brand">
-              <Users className="w-3.5 h-3.5" /> Community Driven
-            </span>
-          </div>
-
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-3 mt-8">
+          <div className="flex flex-wrap items-center gap-3 mt-10">
             <Link href="#events" className="btn btn-tonel btn-lg">
-              Join the next event
+              View challenges
             </Link>
           </div>
         </motion.div>
@@ -290,11 +261,10 @@ function SprintCard({ challenge }: { challenge: Challenge }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
 
-  const steps = [
-    { time: "5 Min", label: "Theme Reveal", icon: Sparkles },
-    { time: "15 Min", label: "Live Demo by Haris", icon: Mic },
-    { time: "30 Min", label: "Creation Sprint", icon: Zap },
-    { time: "10 Min", label: "Winners", icon: Trophy },
+  const eventWindow = [
+    { label: "Challenge Begin", dateTime: "Sunday, 8:10 PM PT" },
+    { label: "Challenge End", dateTime: "Sunday, 9:10 PM PT" },
+    { label: "Winners announcement", dateTime: "Following Sunday, 8:00 PM PT" },
   ];
 
   return (
@@ -307,28 +277,15 @@ function SprintCard({ challenge }: { challenge: Challenge }) {
       <Link href={`/challenges/${challenge.id}`} className="group block">
         <WideChallengeCard
           videoSrc="/uploads/sprint.mp4"
-          typePill={
-            <>
-              <Zap className="w-3 h-3" /> 60 Min Sprint
-            </>
-          }
-          status={challenge.status}
-          joinedCount={challenge._count?.submissions ?? 0}
           title={challenge.title}
-          description={
-            challenge.description ||
-            "High-energy, theme-based 60-minute live creation session on Discord. Build with ImagineArt workflows, compete, and win credits."
-          }
           prize={challenge.prize}
-          deadline={challenge.deadline}
-          formatChips={steps.map((s, i) => (
+          formatChips={eventWindow.map((s, i) => (
             <div
               key={i}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-primary border border-border-color text-body-xs"
+              className="flex flex-col gap-0.5 px-2.5 py-2 rounded-lg bg-surface-primary border border-border-color text-body-xs min-w-0 sm:min-w-[12rem]"
             >
-              <s.icon className="w-3 h-3 text-muted" />
-              <span className="font-semibold text-foreground">{s.time}</span>
-              <span className="text-muted">{s.label}</span>
+              <span className="font-semibold text-foreground">{s.label}</span>
+              <span className="text-muted">{s.dateTime}</span>
             </div>
           ))}
           ctaLabel="Join Sprint"
@@ -343,13 +300,11 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
 
-  const steps = [
-    { icon: Users, label: "Volunteers opt in" },
-    { icon: Swords, label: "2 selected randomly" },
-    { icon: Eye, label: "Reference revealed" },
-    { icon: Timer, label: "20 min to recreate" },
-    { icon: Vote, label: "Community votes" },
-    { icon: Trophy, label: "Winner crowned" },
+  const eventWindow = [
+    { label: "Creators opt in", dateTime: "Saturday, 8:00 PM PT" },
+    { label: "Selection & theme reveal", dateTime: "Sunday, 8:00 PM PT" },
+    { label: "Submission deadline", dateTime: "Monday, 8:00 PM PT" },
+    { label: "Winners announcement", dateTime: "Tuesday, 8:00 PM PT" },
   ];
 
   return (
@@ -362,30 +317,15 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
       <Link href={`/challenges/${challenge.id}`} className="group block">
         <WideChallengeCard
           videoSrc="/uploads/prompt-battles.mp4"
-          typePill={
-            <>
-              <Swords className="w-3 h-3" /> Prompt Battle
-            </>
-          }
-          status={challenge.status}
-          joinedCount={challenge._count?.submissions ?? 0}
           title={challenge.title}
-          description={
-            challenge.description ||
-            "1v1 prompt battles on Discord. Two creators race to recreate a reference scene — the community picks the winner."
-          }
           prize={challenge.prize}
-          deadline={challenge.deadline}
-          formatChips={steps.map((s, i) => (
+          formatChips={eventWindow.map((s, i) => (
             <div
               key={i}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-primary border border-border-color text-body-xs"
+              className="flex flex-col gap-0.5 px-2.5 py-2 rounded-lg bg-surface-primary border border-border-color text-body-xs min-w-0 sm:min-w-[12rem]"
             >
-              <span className="font-mono font-bold text-tertiary">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <s.icon className="w-3 h-3 text-muted flex-shrink-0" />
-              <span className="text-muted truncate">{s.label}</span>
+              <span className="font-semibold text-foreground">{s.label}</span>
+              <span className="text-muted">{s.dateTime}</span>
             </div>
           ))}
           ctaLabel="Join Battle"
@@ -398,30 +338,17 @@ function BattleCard({ challenge }: { challenge: Challenge }) {
 /* ───────────────── WIDE CHALLENGE CARD (shared) ───────────────── */
 function WideChallengeCard({
   videoSrc,
-  typePill,
-  status,
-  joinedCount,
   title,
-  description,
   prize,
-  deadline,
   formatChips,
   ctaLabel,
 }: {
   videoSrc: string;
-  typePill: React.ReactNode;
-  status: string;
-  joinedCount: number;
   title: string;
-  description: string;
   prize: string;
-  deadline: string;
   formatChips: React.ReactNode;
   ctaLabel: string;
 }) {
-  const isActive = status === "active";
-  const isEnded = status === "ended";
-
   return (
     <div className="project-card overflow-hidden">
       {/* Media + overlaid content */}
@@ -440,59 +367,31 @@ function WideChallengeCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
         <div className="relative z-10 p-6 sm:p-8 flex flex-col h-full min-h-[260px] sm:min-h-[320px]">
-          {/* Top pills row */}
-          <div className="flex flex-wrap items-center gap-2">
-            {isActive && (
-              <span className="badge badge-success text-label-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--success-50)] animate-pulse" />
-                Active
-              </span>
-            )}
-            <span className="pill-brand" style={{ padding: "4px 10px" }}>
-              {typePill}
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-body-xs text-white/70 border border-white/15 bg-white/5">
-              <Users className="w-3 h-3" />
-              {joinedCount} joined
-            </span>
-          </div>
-
-          {/* Title + description + meta pushed to bottom of media area */}
+          {/* Title + meta pushed to bottom of media area */}
           <div className="mt-auto max-w-2xl">
             <h3
-              className="text-white font-semibold tracking-tight mb-2"
+              className="text-white font-semibold tracking-tight mb-3"
               style={{ fontSize: "clamp(24px, 2.6vw, 34px)", lineHeight: 1.15 }}
             >
               {title}
             </h3>
-            <p className="text-body-sm text-white/75 leading-relaxed line-clamp-2 mb-3">
-              {description}
-            </p>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-body-xs">
-              {prize && (
+            {prize && (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-body-xs">
                 <span className="flex items-center gap-1.5 text-[var(--warning-50)] font-semibold">
                   <Trophy className="w-3.5 h-3.5" /> {prize}
                 </span>
-              )}
-              <span className="flex items-center gap-1.5 text-white/70">
-                <Clock className="w-3.5 h-3.5" />
-                {isEnded ? (
-                  "Ended"
-                ) : (
-                  <CountdownTimer deadline={deadline} compact />
-                )}
-              </span>
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Bottom strip — event format chips + CTA */}
+      {/* Bottom strip — event timeline chips + CTA */}
       <div className="border-t border-border-color bg-surface-elevated p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center gap-4">
         <div className="flex-1 min-w-0">
           <span className="text-label-xs uppercase tracking-widest text-muted block mb-2">
-            Event Format
+            Event Timeline
           </span>
           <div className="flex flex-wrap gap-2">{formatChips}</div>
         </div>

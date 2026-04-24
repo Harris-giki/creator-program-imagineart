@@ -81,12 +81,26 @@ export function Navbar() {
             )}
 
             <a
+              href={isHome ? "#events" : "/#events"}
+              className={cn(
+                "btn btn-tonel btn-md",
+                isHome && "shadow-sm shadow-black/20"
+              )}
+            >
+              Explore Challenges
+            </a>
+            <a
               href="https://discord.gg/p6ZXQnAM"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-tonel btn-md"
+              className={cn(
+                "hidden sm:inline-flex items-center px-3 py-2 rounded-full text-body-sm font-medium transition-all",
+                isHome
+                  ? "text-white/80 hover:text-white border border-white/20 hover:bg-white/10"
+                  : "text-muted hover:text-foreground border border-border-color hover:bg-surface-hover"
+              )}
             >
-              Join Discord
+              Discord
             </a>
           </div>
         </div>

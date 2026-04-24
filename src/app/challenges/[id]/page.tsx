@@ -7,11 +7,9 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { CountdownTimer } from "@/components/countdown-timer";
-import { cn, formatDate } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import {
   Trophy,
-  Clock,
   Users,
   ArrowLeft,
   Upload,
@@ -21,12 +19,11 @@ import {
   Image as ImageIcon,
   Sparkles,
   Zap,
-  Mic,
   Swords,
   Eye,
-  Timer,
-  Vote,
+  Calendar,
   Gift,
+  Lock,
 } from "lucide-react";
 
 interface Challenge {
@@ -51,20 +48,30 @@ interface Submission {
 }
 
 const sprintSteps = [
-  { time: "0:00", label: "Theme Reveal + Rules", icon: Sparkles, duration: "5 min" },
-  { time: "0:05", label: "Live Demo Walkthrough", icon: Mic, duration: "15 min" },
-  { time: "0:20", label: "Community Creation Sprint", icon: Zap, duration: "30 min" },
-  { time: "0:50", label: "Showcase + Winner Announcement", icon: Trophy, duration: "10 min" },
+  { time: "Sun 8:00 PM", label: "Theme Reveal + Rules", icon: Sparkles, duration: "PT" },
+  { time: "Sun 8:10 PM", label: "Challenge begins", icon: Zap, duration: "" },
+  { time: "Sun 8:55 PM", label: "Submission portal opens", icon: Upload, duration: "" },
+  { time: "Sun 9:10 PM", label: "Submission portal closes", icon: Lock, duration: "" },
+  { time: "Next Sun 8:00 PM", label: "Winners announced", icon: Calendar, duration: "PT" },
 ];
 
-const battleSteps = [
-  { num: "01", label: "Volunteers opt in for battle", icon: Users },
-  { num: "02", label: "Two participants randomly selected", icon: Swords },
-  { num: "03", label: "Reference scene revealed live", icon: Eye },
-  { num: "04", label: "20 minutes to recreate using prompts & workflows", icon: Timer },
-  { num: "05", label: "Final outputs posted anonymously", icon: ImageIcon },
-  { num: "06", label: "Community votes via Discord poll", icon: Vote },
-  { num: "07", label: "Winner announced live", icon: Trophy },
+const EVALUATION_BULLETS = [
+  "Overall quality of the post",
+  "Creativity and originality",
+  "Realism and level of craft",
+  "Feature & visibility: post your work and tag the official ImagineArt LinkedIn account (@ImagineArt).",
+] as const;
+
+const battleTimeline = [
+  { time: "Sat 8:00 PM", label: "Creators opt in opens", icon: Users, duration: "PT" },
+  {
+    time: "Sun 8:00 PM",
+    label: "Participants randomly selected & theme revealed",
+    icon: Eye,
+    duration: "",
+  },
+  { time: "Mon 8:00 PM", label: "Submission deadline", icon: Upload, duration: "" },
+  { time: "Tue 8:00 PM", label: "Winners announcement", icon: Calendar, duration: "PT" },
 ];
 
 export default function ChallengePage() {
@@ -191,7 +198,7 @@ export default function ChallengePage() {
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      <main className="flex-1">
+      <main className="flex-1 flex flex-col">
         {/* ── Hero Banner ── */}
         <section className="relative overflow-hidden bg-black min-h-[420px] sm:min-h-[500px]">
           {/* Video background */}
@@ -224,77 +231,80 @@ export default function ChallengePage() {
             {/* Brand badges */}
             <div className="flex flex-wrap items-center gap-2 mb-5">
               {isActive ? (
-                <span className="badge badge-success uppercase tracking-wider text-label-xs">
-                  <span className="w-1.5 h-1.5 bg-[var(--success-50)] rounded-full animate-pulse" />
-                  {challenge.status}
+                <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-label-xs font-medium text-white bg-white/10 border border-white/20 backdrop-blur-sm normal-case max-w-[min(100%,20rem)]">
+                  <span className="w-1.5 h-1.5 bg-[var(--success-50)] rounded-full animate-pulse flex-shrink-0" />
+                  Begins at Sunday 8:00 PM US, PT
                 </span>
               ) : (
                 <span className="badge badge-neutral uppercase tracking-wider text-label-xs">
                   {challenge.status}
                 </span>
               )}
-              <span className="pill-brand">
-                {isSprint ? (
-                  <>
-                    <Zap className="w-3.5 h-3.5" /> 60 Min Sprint
-                  </>
-                ) : isBattle ? (
-                  <>
-                    <Swords className="w-3.5 h-3.5" /> Biweekly Battle
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-3.5 h-3.5" /> {challenge.theme}
-                  </>
-                )}
-              </span>
+              {!isSprint && !isBattle && (
+                <span className="pill-brand">
+                  <Sparkles className="w-3.5 h-3.5" /> {challenge.theme}
+                </span>
+              )}
             </div>
 
             {/* Title */}
             <h1
-              className="text-white font-medium tracking-tight mb-5 max-w-4xl"
+              className="text-white font-medium tracking-tight mb-4 max-w-4xl"
               style={{ fontSize: "clamp(36px, 6vw, 72px)", lineHeight: 1.05 }}
             >
               {challenge.title}
             </h1>
 
+            {isSprint && (
+              <p
+                className="text-white/80 max-w-2xl mb-5"
+                style={{ fontSize: "clamp(15px, 1.35vw, 18px)", lineHeight: 1.5 }}
+              >
+                A theme-based creative challenge open to all users and creators on ImagineArt,
+                completely free to join.
+              </p>
+            )}
+
+            {isBattle && (
+              <p
+                className="text-white/80 max-w-2xl mb-5"
+                style={{ fontSize: "clamp(15px, 1.35vw, 18px)", lineHeight: 1.5 }}
+              >
+                A theme-based creation battle among ImagineArt Creators (free to join). Two
+                participating creators are selected randomly and go head to head to generate based
+                on the theme revealed with the ImagineArt suite, with 1 day to submit their
+                creations.
+              </p>
+            )}
+
             {/* Meta row */}
-            <div className="flex flex-wrap items-center gap-5 text-body-sm">
-              {challenge.prize && (
+            {challenge.prize && (
+              <div className="flex flex-wrap items-center gap-5 text-body-sm">
                 <div className="flex items-center gap-1.5 text-[var(--warning-50)] font-semibold">
                   <Trophy className="w-4 h-4" />
                   {challenge.prize}
                 </div>
-              )}
-              <div className="flex items-center gap-1.5 text-white/60">
-                <Users className="w-4 h-4" />
-                {challenge._count.submissions} entries
               </div>
-              <div className="flex items-center gap-1.5 text-white/60">
-                <Clock className="w-4 h-4" />
-                Deadline: {formatDate(challenge.deadline)}
-              </div>
-            </div>
+            )}
           </div>
         </section>
 
-        {/* ── Body ── */}
-        <div className="pattern-bg border-t border-border-color">
+        {/* ── Body (pattern continues from page shell; matches home sections) ── */}
+        <div className="flex-1 border-t border-border-color">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main column */}
               <div className="flex-1 min-w-0">
-                {/* Countdown */}
-                {isActive && (
+                {isSprint && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="project-card p-6 mb-8"
                   >
-                    <p className="text-label-sm uppercase tracking-widest text-muted mb-4">
-                      Time Remaining
+                    <p className="text-body-sm text-foreground">
+                      Challenge starts at 8:00 PM Pacific (PT, US) in San Francisco time on
+                      Sunday.
                     </p>
-                    <CountdownTimer deadline={challenge.deadline} />
                   </motion.div>
                 )}
 
@@ -302,7 +312,7 @@ export default function ChallengePage() {
                 {isSprint && (
                   <div className="mb-8">
                     <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
-                      Event Format — 60 Minutes
+                      Schedule (Pacific Time, PT)
                     </h3>
                     <div className="space-y-2">
                       {sprintSteps.map((step, i) => (
@@ -311,44 +321,74 @@ export default function ChallengePage() {
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: i * 0.1 }}
-                          className="project-card flex items-center gap-4 p-4"
+                          className="project-card flex items-center gap-3 sm:gap-4 p-4"
                         >
-                          <span className="text-label-xs font-mono font-bold text-muted w-10 flex-shrink-0">
+                          <span className="text-label-xs font-mono font-bold text-muted w-[5.5rem] sm:min-w-[6.5rem] flex-shrink-0 text-left leading-snug">
                             {step.time}
                           </span>
                           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-lg bg-surface-brand text-brand-text">
                             <step.icon className="w-4 h-4" />
                           </div>
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <span className="text-body-sm font-semibold text-foreground">
                               {step.label}
                             </span>
                           </div>
-                          <span className="text-label-xs font-mono text-muted flex-shrink-0">
-                            {step.duration}
-                          </span>
+                          {step.duration ? (
+                            <span className="text-label-xs font-mono text-muted flex-shrink-0 text-right min-w-[2.25rem]">
+                              {step.duration}
+                            </span>
+                          ) : null}
                         </motion.div>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Battle format */}
+                {/* Battle schedule (same layout as live sprint) */}
                 {isBattle && (
                   <div className="mb-8">
                     <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
-                      Battle Flow — 20-30 Minutes
+                      Schedule (Pacific Time, PT)
                     </h3>
+                    <div className="space-y-2 mb-8">
+                      {battleTimeline.map((step, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.1 }}
+                          className="project-card flex items-center gap-3 sm:gap-4 p-4"
+                        >
+                          <span className="text-label-xs font-mono font-bold text-muted w-[5.5rem] sm:min-w-[6.5rem] flex-shrink-0 text-left leading-snug">
+                            {step.time}
+                          </span>
+                          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-lg bg-surface-brand text-brand-text">
+                            <step.icon className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-body-sm font-semibold text-foreground">
+                              {step.label}
+                            </span>
+                          </div>
+                          {step.duration ? (
+                            <span className="text-label-xs font-mono text-muted flex-shrink-0 text-right min-w-[2.25rem]">
+                              {step.duration}
+                            </span>
+                          ) : null}
+                        </motion.div>
+                      ))}
+                    </div>
 
                     {/* VS graphic */}
-                    <div className="project-card flex items-center justify-center gap-8 py-8 mb-4">
+                    <div className="project-card flex items-center justify-center gap-8 py-8">
                       <div className="text-center">
                         <div className="w-16 h-16 border-2 border-border-brand bg-surface-brand flex items-center justify-center mb-2 mx-auto rounded-2xl">
                           <span className="text-heading-xs font-bold text-brand-text">
                             P1
                           </span>
                         </div>
-                        <p className="text-body-xs text-muted">Challenger</p>
+                        <p className="text-body-xs text-muted">Creator</p>
                       </div>
                       <div className="flex flex-col items-center">
                         <Swords className="w-9 h-9 text-brand-text mb-1" />
@@ -362,63 +402,49 @@ export default function ChallengePage() {
                             P2
                           </span>
                         </div>
-                        <p className="text-body-xs text-muted">Challenger</p>
+                        <p className="text-body-xs text-muted">Creator</p>
                       </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      {battleSteps.map((step, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.08 }}
-                          className="project-card flex items-center gap-4 p-3.5"
-                        >
-                          <span className="text-label-xs font-mono font-bold text-brand-text w-6 flex-shrink-0">
-                            {step.num}
-                          </span>
-                          <step.icon className="w-4 h-4 text-muted flex-shrink-0" />
-                          <span className="text-body-sm text-foreground">
-                            {step.label}
-                          </span>
-                        </motion.div>
-                      ))}
                     </div>
                   </div>
                 )}
 
-                {/* Description */}
-                <div className="mb-8">
-                  <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
-                    About This Challenge
-                  </h3>
-                  <div className="project-card p-6 text-body-sm text-muted leading-relaxed whitespace-pre-wrap">
-                    {challenge.description}
+                {/* Evaluation (sprint + battle) */}
+                {(isSprint || isBattle) && (
+                  <div className="mb-8">
+                    <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
+                      Evaluation
+                    </h3>
+                    <div className="project-card p-5 sm:p-6">
+                      <p className="text-body-sm text-muted mb-3">
+                        Entries are reviewed based on the same core themes, along with the following
+                        evaluation factors:
+                      </p>
+                      <ul className="space-y-2">
+                        {EVALUATION_BULLETS.map((line, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-2.5 text-body-sm text-foreground/90"
+                          >
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--primary-40)] flex-shrink-0" />
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                )}
 
-                {/* What to submit */}
-                <div className="mb-8">
-                  <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
-                    What to Submit
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {[
-                      { icon: ImageIcon, label: "Final Output", desc: "Your finished creation" },
-                      { icon: Sparkles, label: "Prompt Used", desc: "Share your prompt" },
-                      { icon: Zap, label: "Workflow Steps", desc: "Optional but encouraged" },
-                    ].map((item, i) => (
-                      <div key={i} className="project-card p-5 text-center">
-                        <item.icon className="w-5 h-5 mx-auto mb-2 text-brand-text" />
-                        <p className="text-label-sm font-semibold mb-1 text-foreground">
-                          {item.label}
-                        </p>
-                        <p className="text-body-xs text-muted">{item.desc}</p>
-                      </div>
-                    ))}
+                {/* Description (not shown for live sprint; intro lives in hero) */}
+                {!isSprint && !isBattle && challenge.description?.trim() && (
+                  <div className="mb-8">
+                    <h3 className="text-label-sm uppercase tracking-widest text-muted mb-4">
+                      About This Challenge
+                    </h3>
+                    <div className="project-card p-6 text-body-sm text-muted leading-relaxed whitespace-pre-wrap">
+                      {challenge.description}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Gallery */}
                 {submissions.length > 0 && (
@@ -526,11 +552,8 @@ export default function ChallengePage() {
                 {/* Quick info */}
                 <div className="project-card overflow-hidden">
                   {[
-                    { label: "Format", value: isSprint ? "60 min sprint" : "20 min battle" },
                     { label: "Frequency", value: isSprint ? "Weekly" : "Biweekly" },
-                    { label: "Platform", value: "Discord" },
-                    { label: "Deadline", value: formatDate(challenge.deadline) },
-                    { label: "Entries", value: String(challenge._count.submissions) },
+                    { label: "Who can join", value: "All ImagineArt creators" },
                   ].map((row, i, arr) => (
                     <div
                       key={row.label}
@@ -545,37 +568,6 @@ export default function ChallengePage() {
                       </span>
                     </div>
                   ))}
-                </div>
-
-                {/* Objectives */}
-                <div className="project-card p-5">
-                  <p className="text-label-sm uppercase tracking-widest text-muted mb-3">
-                    Objectives
-                  </p>
-                  <ul className="space-y-2">
-                    {(isSprint
-                      ? [
-                          "Increase product adoption",
-                          "Encourage experimentation",
-                          "Drive Discord engagement",
-                          "Generate community content",
-                        ]
-                      : [
-                          "Boost Discord engagement",
-                          "Improve prompting skills",
-                          "Drive active product usage",
-                          "Build competitive culture",
-                        ]
-                    ).map((goal, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2 text-body-xs text-muted"
-                      >
-                        <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-brand-text" />
-                        {goal}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
             </div>

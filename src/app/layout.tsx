@@ -15,9 +15,9 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ImagineArt Contests - Weekly Creative Challenges",
+  title: "ImagineArt Contests — 45 min creation sprints & battles",
   description:
-    "Compete in weekly creative challenges, showcase your AI art, and win prizes.",
+    "Free for all ImagineArt creators: weekly 45 min creation sprints, sprint battles, LinkedIn spotlights, and credits for top work.",
   icons: {
     icon: "/Group.png",
     shortcut: "/Group.png",
